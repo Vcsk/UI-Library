@@ -83,6 +83,24 @@ Section:NewToggle("ToggleText", "ToggleInfo", function(state)
 end)
 ```
 
+## Update Toggle
+
+```lua
+getgenv().Toggled = false
+
+local toggle = Section:NewToggle("Toggle", "Info", (state)
+    getgenv().Toggled = state
+end)
+
+game:GetService("RunService").RenderStepped:Connect(function()
+	if getgenv().Toggled then
+		toggle:UpdateToggle("Toggle On")
+	else
+		toggle:UpdateToggle("Toggle Off")
+	end
+end)
+```
+
 # Orion Library
 This documentation is for the stable release of Orion Library.
 
