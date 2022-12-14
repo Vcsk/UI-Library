@@ -65,7 +65,6 @@ local newList = {
 local dropdown = Section:NewDropdown("Dropdown","Info", oldList, function()
 
 end)
-
 Section:NewButton("Update Dropdown", "Refreshes Dropdown", function()
   dropdown:Refresh(newList)
 end)
@@ -84,6 +83,7 @@ local colors = {
 }
 
 local Window = Library.CreateLib("TITLE", colors)
+
 for theme, color in pairs(themes) do
     Section:NewColorPicker(theme, "Change your "..theme, color, function(color3)
         Library:ChangeColor(theme, color3)
