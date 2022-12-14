@@ -1,5 +1,6 @@
 # Kavo Library
 
+Kavo Library Made By xHeptc
 
 ## Getting Loadstring
 
@@ -7,14 +8,11 @@
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Vcsk/UI-Library/main/Source/Kavo.lua"))()
 ```
 
-
-
 ## Creating UI Library Window
 
 ```lua
 local Window = Library.CreateLib("TITLE", "DarkTheme")
 ```
-
 
 Themes:
 - LightTheme
@@ -26,6 +24,12 @@ Themes:
 - Sentinel
 - Synapse
 - Serpent
+
+## Creating Tabs
+
+```lua
+local Tab = Window:NewTab("TabName")
+```
 
 # Orion Library
 This documentation is for the stable release of Orion Library.
