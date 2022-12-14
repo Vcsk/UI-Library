@@ -1,6 +1,6 @@
 # Kavo Library
 
-Kavo Library Made By xHeptc
+Kavo Library Made By xHeptc.
 
 ## Getting Loadstring
 
@@ -53,6 +53,34 @@ Section:NewLabel("LabelText")
 
 ```lua
 label:UpdateLabel("New Text")
+```
+
+## Creating Buttons
+
+```lua
+Section:NewButton("ButtonText", "ButtonInfo", function()
+    print("Clicked")
+end)
+```
+
+## Update Button
+
+Make sure your button is local when updating it.
+
+```lua
+button:UpdateButton("New Text")
+```
+
+## Creating Toggles
+
+```lua
+Section:NewToggle("ToggleText", "ToggleInfo", function(state)
+    if state then
+        print("Toggle On")
+    else
+        print("Toggle Off")
+    end
+end)
 ```
 
 # Orion Library
