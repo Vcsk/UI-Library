@@ -37,6 +37,24 @@ local Tab = Window:NewTab("TabName")
 local Section = Tab:NewSection("Section Name")
 ```
 
+## Update Section
+
+```lua
+Section:UpdateSection("Section New Title")
+```
+
+## Creating Labels
+
+```lua
+Section:NewLabel("LabelText")
+```
+
+## Update Label
+
+```lua
+label:UpdateLabel("New Text")
+```
+
 # Orion Library
 This documentation is for the stable release of Orion Library.
 
