@@ -1,5 +1,31 @@
 # Kavo Library
 
+## Getting Loadstring
+
+```lua
+
+```
+
+
+
+## Creating UI Library Window
+
+```lua
+
+```
+
+
+Themes:
+- LightTheme
+- DarkTheme
+- GrapeTheme
+- BloodTheme
+- Ocean
+- Midnight
+- Sentinel
+- Synapse
+- Serpent
+
 # Orion Library
 This documentation is for the stable release of Orion Library.
 
