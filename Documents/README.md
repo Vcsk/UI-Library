@@ -4,7 +4,7 @@
 ## Getting Loadstring
 
 ```lua
-print("later")
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Vcsk/UI-Library/main/Source/Kavo.lua"))()
 ```
 
 
@@ -12,7 +12,7 @@ print("later")
 ## Creating UI Library Window
 
 ```lua
-print("later")
+local Window = Library.CreateLib("TITLE", "DarkTheme")
 ```
 
 
