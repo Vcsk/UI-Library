@@ -101,6 +101,30 @@ game:GetService("RunService").RenderStepped:Connect(function()
 end)
 ```
 
+## Creating Sliders
+
+```lua
+Section:NewSlider("SliderText", "SliderInfo", 500, 0, function(s) -- 500 (MaxValue) | 0 (MinValue)
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = s
+end)
+```
+
+## Creating TextBoxes
+
+```lua
+Section:NewTextBox("TextboxText", "TextboxInfo", function(txt)
+	print(txt)
+end)
+```
+
+## Creating Keybinds
+
+```lua
+Section:NewKeybind("KeybindText", "KeybindInfo", Enum.KeyCode.F, function()
+	print("You just clicked the bind")
+end)
+```
+
 # Orion Library
 This documentation is for the stable release of Orion Library.
 
