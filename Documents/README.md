@@ -31,6 +31,12 @@ Themes:
 local Tab = Window:NewTab("TabName")
 ```
 
+## Creating Sections
+
+```lua
+local Section = Tab:NewSection("Section Name")
+```
+
 # Orion Library
 This documentation is for the stable release of Orion Library.
 
