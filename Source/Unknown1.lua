@@ -1017,4 +1017,3 @@ function Update:Window(text,logo,keybind)
 		return main
 	end
 	return uitab
-end
