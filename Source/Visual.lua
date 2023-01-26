@@ -1420,13 +1420,13 @@ function Library:CreateWindow(HubName, GameName, IntroText, IntroIcon, ImprovePe
     end
 
     HubNameObj.InputBegan:Connect(function(Input)
-        if Input.UserInputType == Enum.UserInputType.MouseButton1 then
+        if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
             Library:CreatePrompt('Text', 'Hub Name', HubName, 'Close')
         end
     end)
 
     GameNameObj.InputBegan:Connect(function(Input)
-        if Input.UserInputType == Enum.UserInputType.MouseButton1 then
+        if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
             Library:CreatePrompt('Text', 'Game Name', GameName, 'Close')
         end
     end)
@@ -2333,7 +2333,7 @@ function Library:CreateWindow(HubName, GameName, IntroText, IntroIcon, ImprovePe
                         Utility:Tween(SliderTrail, {Size = UDim2.new(0, math.clamp(Mouse.X - SliderTrail.AbsolutePosition.X, 0, 395), 0, 10)}, 0.25)
                     end)
                     ReleaseConnection = UserInputService.InputEnded:Connect(function(Input)
-                        if Input.UserInputType == Enum.UserInputType.MouseButton1 then
+                        if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
                             CurrentValue = math.floor((((tonumber(MaximumValue) - tonumber(MinimumValue)) / 395) * SliderTrail.AbsoluteSize.X) + tonumber(MinimumValue))
                             task.spawn(function()
                                 Callback(CurrentValue)
@@ -3658,7 +3658,7 @@ function Library:CreateWindow(HubName, GameName, IntroText, IntroIcon, ImprovePe
                 end)
 
                 UserInputService.InputEnded:Connect(function(Input)
-                    if Input.UserInputType == Enum.UserInputType.MouseButton1 then
+                    if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
                         if DarknessPicked then 
                             DarknessPicked = false 
                         elseif RGBPicked then
@@ -3892,7 +3892,7 @@ function Library:CreateWindow(HubName, GameName, IntroText, IntroIcon, ImprovePe
                             Debounce2 = false
                         end)
                         UpdateImageCanvas()
-                        if Input.UserInputType == Enum.UserInputType.MouseButton1 then
+                        if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
                             Utility:Tween(Image, {Size = UDim2.new(0, Image.Size.X.Offset * 2, 0, Image.Size.Y.Offset * 2)}, 0.25)
                             UpdateImageCanvas()
                         elseif Input.UserInputType == Enum.UserInputType.MouseButton2 and Image.Size ~= ImageSize then
