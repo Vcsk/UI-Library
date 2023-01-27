@@ -149,6 +149,10 @@ function Kavo:ToggleUI()
     end
 end
 
+function Kavo:DestroyUI()
+	game:GetService("CoreGui"):FindFirstChild(LibName):Destroy()
+end
+
 function Kavo.CreateLib(kavName, themeList)
     if not themeList then
         themeList = themes
