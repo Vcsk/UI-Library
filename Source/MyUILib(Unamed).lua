@@ -87,8 +87,6 @@ function Library:Window(title)
 		end
 	end
 	function Library:DestroyUI()
-		Main:TweenSize(UDim2.new(0, 0, 0, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .6, true)
-		wait(.5)
 		game:GetService("CoreGui"):FindFirstChild(title.."_UI"..something123):Destroy()
 	end
 	
@@ -100,7 +98,7 @@ function Library:Window(title)
 	Main.AnchorPoint = Vector2.new(0.5, 0.5)
 	Main.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
 	Main.Position = UDim2.new(0.5, 0, 0.5, 0)
-	Main.Size = UDim2.new(0, 400, 0, 300)
+	Main.Size = UDim2.new(0, 400, 0, 228)
 
 	UICorner.CornerRadius = UDim.new(0, 6)
 	UICorner.Parent = Main
@@ -262,12 +260,12 @@ function Library:Window(title)
 		Active.Name = TabTitle.."_TabButton"
 		Active.Parent = ButtonHolder
 		Active.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		Active.BackgroundTransparency = 1
+		Active.BackgroundTransparency = 0.9
 		Active.BorderSizePixel = 0
 		Active.Size = UDim2.new(1, 0, 0, 28)
 		Active.Font = Enum.Font.Ubuntu
 		Active.Text = TabTitle
-		Active.TextColor3 = Color3.fromRGB(199, 199, 199)
+		Active.TextColor3 = Color3.fromRGB(255, 255, 255)
 		Active.TextSize = 12.000
 		Active.TextXAlignment = Enum.TextXAlignment.Left
 
@@ -327,63 +325,130 @@ function Library:Window(title)
 		end)
 
 		local Elements = {}
-
-		function Elements:Button(ButtonName, callback)
-			ButtonName = ButtonName or "Button"
+		
+		function Elements:Slider(SliderTitle, minvalue, maxvalue, callback)
+			SliderTitle = SliderTitle or "Untitled"
+			minvalue = minvalue or 0
+			maxvalue = maxvalue or 100
 			callback = callback or function() end
+			local Value;
+			local moveconnection;
+			local releaseconnection;
 
-			local Button = Instance.new("TextButton")
-			local UICorner_4 = Instance.new("UICorner")
-			local Title_2 = Instance.new("TextLabel")
-			local UIPadding_5 = Instance.new("UIPadding")
-			local Icon_2 = Instance.new("ImageLabel")
-			local UIStroke = Instance.new("UIStroke")
+			local Slider = Instance.new("Frame")
+			local UICorner_12 = Instance.new("UICorner")
+			local UIStroke_4 = Instance.new("UIStroke")
+			local Title_8 = Instance.new("TextLabel")
+			local UIPadding_15 = Instance.new("UIPadding")
+			local Valuee = Instance.new("TextLabel")
+			local SliderButton = Instance.new("TextButton")
+			local UIStroke_5 = Instance.new("UIStroke")
+			local SliderInner = Instance.new("Frame")
+			local UICorner_13 = Instance.new("UICorner")
+			local UICorner_14 = Instance.new("UICorner")
 
-			Button.Name = "Button"
-			Button.Parent = NewTab
-			Button.BackgroundColor3 = Color3.fromRGB(26, 26, 26)
-			Button.Size = UDim2.new(1, 0, 0, 32)
-			Button.Text = ""
-			Button.MouseButton1Click:Connect(function()
-				callback()
+			Slider.Name = "Slider"
+			Slider.Parent = NewTab
+			Slider.BackgroundColor3 = Color3.fromRGB(26, 26, 26)
+			Slider.Size = UDim2.new(1, 0, 0, 38)
+
+			UICorner_12.CornerRadius = UDim.new(0, 4)
+			UICorner_12.Parent = Slider
+
+			UIStroke_4.Name = "UIStroke"
+			UIStroke_4.Parent = Slider
+			UIStroke_4.ApplyStrokeMode = "Border"
+			UIStroke_4.Color = Color3.fromRGB(81, 81, 81)
+			UIStroke_4.LineJoinMode = "Round"
+			UIStroke_4.Thickness = 1
+			UIStroke_4.Transparency = 0
+
+			Title_8.Name = "Title"
+			Title_8.Parent = Slider
+			Title_8.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			Title_8.BackgroundTransparency = 1.000
+			Title_8.Size = UDim2.new(1, -24, 1, -10)
+			Title_8.Font = Enum.Font.Ubuntu
+			Title_8.Text = SliderTitle
+			Title_8.TextColor3 = Color3.fromRGB(255, 255, 255)
+			Title_8.TextSize = 14.000
+			Title_8.TextXAlignment = Enum.TextXAlignment.Left
+
+			UIPadding_15.Parent = Slider
+			UIPadding_15.PaddingBottom = UDim.new(0, 6)
+			UIPadding_15.PaddingLeft = UDim.new(0, 6)
+			UIPadding_15.PaddingRight = UDim.new(0, 6)
+			UIPadding_15.PaddingTop = UDim.new(0, 6)
+
+			Valuee.Name = "Value"
+			Valuee.Parent = Slider
+			Valuee.AnchorPoint = Vector2.new(1, 0)
+			Valuee.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			Valuee.BackgroundTransparency = 1.000
+			Valuee.Position = UDim2.new(1, 0, 0, 0)
+			Valuee.Size = UDim2.new(0, 24, 1, -10)
+			Valuee.Font = Enum.Font.Ubuntu
+			Valuee.Text = "0"
+			Valuee.TextColor3 = Color3.fromRGB(255, 255, 255)
+			Valuee.TextSize = 14.000
+			Valuee.TextXAlignment = Enum.TextXAlignment.Right
+
+			SliderButton.Name = "SliderButton"
+			SliderButton.Parent = Slider
+			SliderButton.BackgroundColor3 = Color3.fromRGB(12, 12, 12)
+			SliderButton.BackgroundTransparency = 1
+			SliderButton.Position = UDim2.new(0, 0, 0.846153855, 0)
+			SliderButton.Size = UDim2.new(0, 253, 0, 4)
+			SliderButton.Font = Enum.Font.SourceSans
+			SliderButton.Text = ""
+			SliderButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+			SliderButton.TextSize = 14.000
+
+			UIStroke_5.Name = "UIStroke"
+			UIStroke_5.Parent = SliderButton
+			UIStroke_5.ApplyStrokeMode = "Border"
+			UIStroke_5.Color = Color3.fromRGB(63, 63, 63)
+			UIStroke_5.LineJoinMode = "Round"
+			UIStroke_5.Thickness = 1
+			UIStroke_5.Transparency = 0
+
+			SliderInner.Name = "SliderInner"
+			SliderInner.Parent = SliderButton
+			SliderInner.BackgroundColor3 = Color3.fromRGB(56, 56, 56)
+			SliderInner.Size = UDim2.new(0, 0, 0, 4)
+
+			UICorner_13.CornerRadius = UDim.new(0, 4)
+			UICorner_13.Parent = SliderInner
+
+			UICorner_14.CornerRadius = UDim.new(0, 4)
+			UICorner_14.Parent = SliderButton
+
+			SliderButton.MouseButton1Down:Connect(function()
+				Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 255) * SliderInner.AbsoluteSize.X) + tonumber(minvalue)) or 0
+				pcall(function()
+					callback(Value)
+				end)
+				SliderInner.Size = UDim2.new(0, math.clamp(mouse.X - SliderInner.AbsolutePosition.X, 0, 255), 0, 4.5)
+				moveconnection = mouse.Move:Connect(function()
+					Valuee.Text = Value
+					Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 255) * SliderInner.AbsoluteSize.X) + tonumber(minvalue))
+					pcall(function()
+						callback(Value)
+					end)
+					SliderInner.Size = UDim2.new(0, math.clamp(mouse.X - SliderInner.AbsolutePosition.X, 0, 255), 0, 4.5)
+				end)
+				releaseconnection = input.InputEnded:Connect(function(Mouse)
+					if Mouse.UserInputType == Enum.UserInputType.MouseButton1 or Mouse.UserInputType == Enum.UserInputType.Touch then
+						Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 255) * SliderInner.AbsoluteSize.X) + tonumber(minvalue))
+						pcall(function()
+							callback(Value)
+						end)
+						SliderInner.Size = UDim2.new(0, math.clamp(mouse.X - SliderInner.AbsolutePosition.X, 0, 255), 0, 4.5)
+						moveconnection:Disconnect()
+						releaseconnection:Disconnect()
+					end
+				end)
 			end)
-
-			UICorner_4.CornerRadius = UDim.new(0, 4)
-			UICorner_4.Parent = Button
-
-			Title_2.Name = "Title"
-			Title_2.Parent = Button
-			Title_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-			Title_2.BackgroundTransparency = 1.000
-			Title_2.Size = UDim2.new(1, -20, 1, 0)
-			Title_2.Font = Enum.Font.Ubuntu
-			Title_2.Text = ButtonName
-			Title_2.TextColor3 = Color3.fromRGB(255, 255, 255)
-			Title_2.TextSize = 14.000
-			Title_2.TextXAlignment = Enum.TextXAlignment.Left
-
-			UIPadding_5.Parent = Button
-			UIPadding_5.PaddingBottom = UDim.new(0, 6)
-			UIPadding_5.PaddingLeft = UDim.new(0, 6)
-			UIPadding_5.PaddingRight = UDim.new(0, 6)
-			UIPadding_5.PaddingTop = UDim.new(0, 6)
-
-			Icon_2.Name = "Icon"
-			Icon_2.Parent = Button
-			Icon_2.AnchorPoint = Vector2.new(1, 0)
-			Icon_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-			Icon_2.BackgroundTransparency = 1.000
-			Icon_2.Position = UDim2.new(1, 0, 0, 0)
-			Icon_2.Size = UDim2.new(0, 20, 0, 20)
-			Icon_2.Image = "rbxassetid://10888474558"
-
-			UIStroke.Name = "UIStroke"
-			UIStroke.Parent = Button
-			UIStroke.ApplyStrokeMode = "Border"
-			UIStroke.Color = Color3.fromRGB(81, 81, 81)
-			UIStroke.LineJoinMode = "Round"
-			UIStroke.Thickness = 1
-			UIStroke.Transparency = 0
 
 			function Elements:Toggle(ToggleName, callback)
 				ToggleName = ToggleName or ""
@@ -545,129 +610,62 @@ function Library:Window(title)
 				
 				]]
 				
-				function Elements:Slider(SliderTitle, minvalue, maxvalue, callback)
-					SliderTitle = SliderTitle or "Untitled"
-					minvalue = minvalue or 0
-					maxvalue = maxvalue or 100
+				function Elements:Button(ButtonName, callback)
+					ButtonName = ButtonName or "Button"
 					callback = callback or function() end
-					local Value;
-					local moveconnection;
-					local releaseconnection;
-					
-					local Slider = Instance.new("Frame")
-					local UICorner_12 = Instance.new("UICorner")
-					local UIStroke_4 = Instance.new("UIStroke")
-					local Title_8 = Instance.new("TextLabel")
-					local UIPadding_15 = Instance.new("UIPadding")
-					local Valuee = Instance.new("TextLabel")
-					local SliderButton = Instance.new("TextButton")
-					local UIStroke_5 = Instance.new("UIStroke")
-					local SliderInner = Instance.new("Frame")
-					local UICorner_13 = Instance.new("UICorner")
-					local UICorner_14 = Instance.new("UICorner")
-					
-					Slider.Name = "Slider"
-					Slider.Parent = NewTab
-					Slider.BackgroundColor3 = Color3.fromRGB(26, 26, 26)
-					Slider.Size = UDim2.new(1, 0, 0, 38)
 
-					UICorner_12.CornerRadius = UDim.new(0, 4)
-					UICorner_12.Parent = Slider
-					
-					UIStroke_4.Name = "UIStroke"
-					UIStroke_4.Parent = Slider
-					UIStroke_4.ApplyStrokeMode = "Border"
-					UIStroke_4.Color = Color3.fromRGB(81, 81, 81)
-					UIStroke_4.LineJoinMode = "Round"
-					UIStroke_4.Thickness = 1
-					UIStroke_4.Transparency = 0
+					local Button = Instance.new("TextButton")
+					local UICorner_4 = Instance.new("UICorner")
+					local Title_2 = Instance.new("TextLabel")
+					local UIPadding_5 = Instance.new("UIPadding")
+					local Icon_2 = Instance.new("ImageLabel")
+					local UIStroke = Instance.new("UIStroke")
 
-					Title_8.Name = "Title"
-					Title_8.Parent = Slider
-					Title_8.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-					Title_8.BackgroundTransparency = 1.000
-					Title_8.Size = UDim2.new(1, -24, 1, -10)
-					Title_8.Font = Enum.Font.Ubuntu
-					Title_8.Text = SliderTitle
-					Title_8.TextColor3 = Color3.fromRGB(255, 255, 255)
-					Title_8.TextSize = 14.000
-					Title_8.TextXAlignment = Enum.TextXAlignment.Left
-
-					UIPadding_15.Parent = Slider
-					UIPadding_15.PaddingBottom = UDim.new(0, 6)
-					UIPadding_15.PaddingLeft = UDim.new(0, 6)
-					UIPadding_15.PaddingRight = UDim.new(0, 6)
-					UIPadding_15.PaddingTop = UDim.new(0, 6)
-
-					Valuee.Name = "Value"
-					Valuee.Parent = Slider
-					Valuee.AnchorPoint = Vector2.new(1, 0)
-					Valuee.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-					Valuee.BackgroundTransparency = 1.000
-					Valuee.Position = UDim2.new(1, 0, 0, 0)
-					Valuee.Size = UDim2.new(0, 24, 1, -10)
-					Valuee.Font = Enum.Font.Ubuntu
-					Valuee.Text = "0"
-					Valuee.TextColor3 = Color3.fromRGB(255, 255, 255)
-					Valuee.TextSize = 14.000
-					Valuee.TextXAlignment = Enum.TextXAlignment.Right
-
-					SliderButton.Name = "SliderButton"
-					SliderButton.Parent = Slider
-					SliderButton.BackgroundColor3 = Color3.fromRGB(12, 12, 12)
-					SliderButton.BackgroundTransparency = 1
-					SliderButton.Position = UDim2.new(0, 0, 0.846153855, 0)
-					SliderButton.Size = UDim2.new(0, 253, 0, 4)
-					SliderButton.Font = Enum.Font.SourceSans
-					SliderButton.Text = ""
-					SliderButton.TextColor3 = Color3.fromRGB(0, 0, 0)
-					SliderButton.TextSize = 14.000
-					
-					UIStroke_5.Name = "UIStroke"
-					UIStroke_5.Parent = SliderButton
-					UIStroke_5.ApplyStrokeMode = "Border"
-					UIStroke_5.Color = Color3.fromRGB(63, 63, 63)
-					UIStroke_5.LineJoinMode = "Round"
-					UIStroke_5.Thickness = 1
-					UIStroke_5.Transparency = 0
-
-					SliderInner.Name = "SliderInner"
-					SliderInner.Parent = SliderButton
-					SliderInner.BackgroundColor3 = Color3.fromRGB(56, 56, 56)
-					SliderInner.Size = UDim2.new(0, 0, 0, 4)
-
-					UICorner_13.CornerRadius = UDim.new(0, 4)
-					UICorner_13.Parent = SliderInner
-
-					UICorner_14.CornerRadius = UDim.new(0, 4)
-					UICorner_14.Parent = SliderButton
-					
-					SliderButton.MouseButton1Down:Connect(function()
-						Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 255) * SliderInner.AbsoluteSize.X) + tonumber(minvalue)) or 0
-						pcall(function()
-							callback(Value)
-						end)
-						SliderInner.Size = UDim2.new(0, math.clamp(mouse.X - SliderInner.AbsolutePosition.X, 0, 255), 0, 4.5)
-						moveconnection = mouse.Move:Connect(function()
-							Valuee.Text = Value
-							Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 255) * SliderInner.AbsoluteSize.X) + tonumber(minvalue))
-							pcall(function()
-								callback(Value)
-							end)
-							SliderInner.Size = UDim2.new(0, math.clamp(mouse.X - SliderInner.AbsolutePosition.X, 0, 255), 0, 4.5)
-						end)
-						releaseconnection = input.InputEnded:Connect(function(Mouse)
-							if Mouse.UserInputType == Enum.UserInputType.MouseButton1 or Mouse.UserInputType == Enum.UserInputType.Touch then
-								Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 255) * SliderInner.AbsoluteSize.X) + tonumber(minvalue))
-								pcall(function()
-									callback(Value)
-								end)
-								SliderInner.Size = UDim2.new(0, math.clamp(mouse.X - SliderInner.AbsolutePosition.X, 0, 255), 0, 4.5)
-								moveconnection:Disconnect()
-								releaseconnection:Disconnect()
-							end
-						end)
+					Button.Name = "Button"
+					Button.Parent = NewTab
+					Button.BackgroundColor3 = Color3.fromRGB(26, 26, 26)
+					Button.Size = UDim2.new(1, 0, 0, 32)
+					Button.Text = ""
+					Button.MouseButton1Click:Connect(function()
+						callback()
 					end)
+
+					UICorner_4.CornerRadius = UDim.new(0, 4)
+					UICorner_4.Parent = Button
+
+					Title_2.Name = "Title"
+					Title_2.Parent = Button
+					Title_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+					Title_2.BackgroundTransparency = 1.000
+					Title_2.Size = UDim2.new(1, -20, 1, 0)
+					Title_2.Font = Enum.Font.Ubuntu
+					Title_2.Text = ButtonName
+					Title_2.TextColor3 = Color3.fromRGB(255, 255, 255)
+					Title_2.TextSize = 14.000
+					Title_2.TextXAlignment = Enum.TextXAlignment.Left
+
+					UIPadding_5.Parent = Button
+					UIPadding_5.PaddingBottom = UDim.new(0, 6)
+					UIPadding_5.PaddingLeft = UDim.new(0, 6)
+					UIPadding_5.PaddingRight = UDim.new(0, 6)
+					UIPadding_5.PaddingTop = UDim.new(0, 6)
+
+					Icon_2.Name = "Icon"
+					Icon_2.Parent = Button
+					Icon_2.AnchorPoint = Vector2.new(1, 0)
+					Icon_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+					Icon_2.BackgroundTransparency = 1.000
+					Icon_2.Position = UDim2.new(1, 0, 0, 0)
+					Icon_2.Size = UDim2.new(0, 20, 0, 20)
+					Icon_2.Image = "rbxassetid://10888474558"
+
+					UIStroke.Name = "UIStroke"
+					UIStroke.Parent = Button
+					UIStroke.ApplyStrokeMode = "Border"
+					UIStroke.Color = Color3.fromRGB(81, 81, 81)
+					UIStroke.LineJoinMode = "Round"
+					UIStroke.Thickness = 1
+					UIStroke.Transparency = 0
 					
 					
 				end
