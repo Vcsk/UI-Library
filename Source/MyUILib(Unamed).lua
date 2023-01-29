@@ -78,7 +78,7 @@ function Library:Window(title)
 	local TabsFolder = Instance.new("Folder")
 
 	Library:DraggingEnabled(TopBar, Main)
-	
+
 	function Library:ToggleUI()
 		if game.CoreGui[title.."_UI"..something123].Enabled then
 			game.CoreGui[title.."_UI"..something123].Enabled = false
@@ -89,7 +89,7 @@ function Library:Window(title)
 	function Library:DestroyUI()
 		game:GetService("CoreGui"):FindFirstChild(title.."_UI"..something123):Destroy()
 	end
-	
+
 	UILibrary.Name = title.."_UI"..something123
 	UILibrary.Parent = game:GetService("CoreGui")
 
@@ -325,7 +325,7 @@ function Library:Window(title)
 		end)
 
 		local Elements = {}
-		
+
 		function Elements:Slider(SliderTitle, minvalue, maxvalue, callback)
 			SliderTitle = SliderTitle or "Untitled"
 			minvalue = minvalue or 0
@@ -461,13 +461,19 @@ function Library:Window(title)
 				local CheckmarkHolder = Instance.new("Frame")
 				local UICorner_9 = Instance.new("UICorner")
 				local UIStroke_2 = Instance.new("UIStroke")
+				local Sample = Instance.new("ImageLabel")
 				local UIStroke_3 = Instance.new("UIStroke")
 
 				Toggle.Name = "Toggle"
 				Toggle.Parent = NewTab
 				Toggle.BackgroundColor3 = Color3.fromRGB(26, 26, 26)
-				Toggle.Text = ""
+				Toggle.ClipsDescendants = true
 				Toggle.Size = UDim2.new(1, 0, 0, 32)
+				Toggle.AutoButtonColor = false
+				Toggle.Font = Enum.Font.SourceSans
+				Toggle.Text = ""
+				Toggle.TextColor3 = Color3.fromRGB(0, 0, 0)
+				Toggle.TextSize = 14.000
 
 				UICorner_8.CornerRadius = UDim.new(0, 4)
 				UICorner_8.Parent = Toggle
@@ -496,6 +502,14 @@ function Library:Window(title)
 				UIStroke_2.LineJoinMode = "Round"
 				UIStroke_2.Thickness = 1
 				UIStroke_2.Transparency = 0
+				
+				Sample.Name = "Sample"
+				Sample.Parent = Toggle
+				Sample.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+				Sample.BackgroundTransparency = 1.000
+				Sample.Image = "http://www.roblox.com/asset/?id=4560909609"
+				Sample.ImageColor3 = Color3.fromRGB(0, 0, 0)
+				Sample.ImageTransparency = 0.600
 
 				CheckmarkHolder.Name = "CheckmarkHolder"
 				CheckmarkHolder.Parent = Toggle
@@ -514,28 +528,85 @@ function Library:Window(title)
 				UIStroke_3.LineJoinMode = "Round"
 				UIStroke_3.Thickness = 1
 				UIStroke_3.Transparency = 0
+				
+				local ms = game.Players.LocalPlayer:GetMouse()
 
-				local togggle = false
+				local btn  = Toggle
+				local sample  = Sample
+				local focusing = false
+
+				local toggled = false
 				Toggle.MouseButton1Click:Connect(function()
-					togggle = not togggle
-					callback(togggle)
-					if togggle then 
-						game.TweenService:Create(CheckmarkHolder, TweenInfo.new(0.15, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
-							BackgroundColor3 = Color3.fromRGB(115, 191, 92) 
-						}):Play()
-						game.TweenService:Create(UIStroke_3, TweenInfo.new(0.15, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
-							Color = Color3.fromRGB(0, 255, 59) 
-						}):Play()
-					else
-						game.TweenService:Create(CheckmarkHolder, TweenInfo.new(0.15, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
-							BackgroundColor3 = Color3.fromRGB(61, 67, 74)
-						}):Play()
-						game.TweenService:Create(UIStroke_3, TweenInfo.new(0.15, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
-							Color = Color3.fromRGB(81, 81, 81) 
-						}):Play()
+					if not focusing then
+						if toggled == false then
+							game.TweenService:Create(CheckmarkHolder, TweenInfo.new(0.15, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+								BackgroundColor3 = Color3.fromRGB(115, 191, 92)
+							}):Play()
+							game.TweenService:Create(UIStroke_3, TweenInfo.new(0.15, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+								Color = Color3.fromRGB(0, 255, 59) 
+							}):Play()
+							local c = sample:Clone()
+							c.Parent = btn
+							local x, y = (ms.X - c.AbsolutePosition.X), (ms.Y - c.AbsolutePosition.Y)
+							c.Position = UDim2.new(0, x, 0, y)
+							local len, size = 0.35, nil
+							if btn.AbsoluteSize.X >= btn.AbsoluteSize.Y then
+								size = (btn.AbsoluteSize.X * 1.5)
+							else
+								size = (btn.AbsoluteSize.Y * 1.5)
+							end
+							c:TweenSizeAndPosition(UDim2.new(0, size, 0, size), UDim2.new(0.5, (-size / 2), 0.5, (-size / 2)), 'Out', 'Quad', len, true, nil)
+							for i = 1, 10 do
+								c.ImageTransparency = c.ImageTransparency + 0.05
+								wait(len / 12)
+							end
+							c:Destroy()
+						else
+							game.TweenService:Create(CheckmarkHolder, TweenInfo.new(0.15, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+								BackgroundColor3 = Color3.fromRGB(61, 67, 74) 
+							}):Play()
+							game.TweenService:Create(UIStroke_3, TweenInfo.new(0.15, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+								Color = Color3.fromRGB(81, 81, 81) 
+							}):Play()
+							local c = sample:Clone()
+							c.Parent = btn
+							local x, y = (ms.X - c.AbsolutePosition.X), (ms.Y - c.AbsolutePosition.Y)
+							c.Position = UDim2.new(0, x, 0, y)
+							local len, size = 0.35, nil
+							if btn.AbsoluteSize.X >= btn.AbsoluteSize.Y then
+								size = (btn.AbsoluteSize.X * 1.5)
+							else
+								size = (btn.AbsoluteSize.Y * 1.5)
+							end
+							c:TweenSizeAndPosition(UDim2.new(0, size, 0, size), UDim2.new(0.5, (-size / 2), 0.5, (-size / 2)), 'Out', 'Quad', len, true, nil)
+							for i = 1, 10 do
+								c.ImageTransparency = c.ImageTransparency + 0.05
+								wait(len / 12)
+							end
+							c:Destroy()
+						end
+						toggled = not toggled
+						pcall(callback, toggled)
 					end
 				end)
-				
+				local hovering = false
+				btn.MouseEnter:Connect(function()
+					if not focusing then
+						game.TweenService:Create(btn, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+							BackgroundColor3 = Color3.fromRGB(54, 54, 54)
+						}):Play()
+						hovering = true
+					end 
+				end)
+				btn.MouseLeave:Connect(function()
+					if not focusing then
+						game.TweenService:Create(btn, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+							BackgroundColor3 = Color3.fromRGB(26, 26, 26)
+						}):Play()
+						hovering = false
+					end
+				end)
+
 				--[[ not working
 				local Labels = {}
 				
@@ -609,7 +680,7 @@ function Library:Window(title)
 				UIStroke_5.Transparency = 0
 				
 				]]
-				
+
 				function Elements:Button(ButtonName, callback)
 					ButtonName = ButtonName or "Button"
 					callback = callback or function() end
@@ -618,17 +689,24 @@ function Library:Window(title)
 					local UICorner_4 = Instance.new("UICorner")
 					local Title_2 = Instance.new("TextLabel")
 					local UIPadding_5 = Instance.new("UIPadding")
+					local Sample = Instance.new("ImageLabel")
 					local Icon_2 = Instance.new("ImageLabel")
 					local UIStroke = Instance.new("UIStroke")
+
+					local modules = {}
+					table.insert(modules, ButtonName)
 
 					Button.Name = "Button"
 					Button.Parent = NewTab
 					Button.BackgroundColor3 = Color3.fromRGB(26, 26, 26)
+					Button.ClipsDescendants = true
 					Button.Size = UDim2.new(1, 0, 0, 32)
+					Button.AutoButtonColor = false
+					Button.Font = Enum.Font.SourceSans
 					Button.Text = ""
-					Button.MouseButton1Click:Connect(function()
-						callback()
-					end)
+					Button.TextColor3 = Color3.fromRGB(0, 0, 0)
+					Button.TextSize = 14.000
+					Objects[Button] = "BackgroundColor3"
 
 					UICorner_4.CornerRadius = UDim.new(0, 4)
 					UICorner_4.Parent = Button
@@ -649,6 +727,15 @@ function Library:Window(title)
 					UIPadding_5.PaddingLeft = UDim.new(0, 6)
 					UIPadding_5.PaddingRight = UDim.new(0, 6)
 					UIPadding_5.PaddingTop = UDim.new(0, 6)
+					
+					Sample.Name = "Sample"
+					Sample.Parent = Button
+					Sample.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+					Sample.BackgroundTransparency = 1.000
+					Sample.Image = "http://www.roblox.com/asset/?id=4560909609"
+					Sample.ImageColor3 = Color3.fromRGB(0, 0, 0)
+					Objects[Sample] = "ImageColor3"
+					Sample.ImageTransparency = 0.600
 
 					Icon_2.Name = "Icon"
 					Icon_2.Parent = Button
@@ -666,12 +753,55 @@ function Library:Window(title)
 					UIStroke.LineJoinMode = "Round"
 					UIStroke.Thickness = 1
 					UIStroke.Transparency = 0
-					
-					
+
+					local ms = game.Players.LocalPlayer:GetMouse()
+
+					local btn  = Button
+					local sample  = Sample
+
+					btn.MouseButton1Click:Connect(function()
+						if not focusing then
+							callback()
+							local c = sample:Clone()
+							c.Parent = btn
+							local x, y = (ms.X - c.AbsolutePosition.X), (ms.Y - c.AbsolutePosition.Y)
+							c.Position = UDim2.new(0, x, 0, y)
+							local len, size = 0.35, nil
+							if btn.AbsoluteSize.X >= btn.AbsoluteSize.Y then
+								size = (btn.AbsoluteSize.X * 1.5)
+							else
+								size = (btn.AbsoluteSize.Y * 1.5)
+							end
+							c:TweenSizeAndPosition(UDim2.new(0, size, 0, size), UDim2.new(0.5, (-size / 2), 0.5, (-size / 2)), 'Out', 'Quad', len, true, nil)
+							for i = 1, 10 do
+								c.ImageTransparency = c.ImageTransparency + 0.05
+								wait(len / 12)
+							end
+							c:Destroy()
+						end
+					end)
+					local hovering = false
+					btn.MouseEnter:Connect(function()
+						if not focusing then
+							game.TweenService:Create(btn, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+								BackgroundColor3 = Color3.fromRGB(54, 54, 54)
+							}):Play()
+							hovering = true
+						end
+					end)
+					btn.MouseLeave:Connect(function()
+						if not focusing then 
+							game.TweenService:Create(btn, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+								BackgroundColor3 = Color3.fromRGB(26, 26, 26)
+							}):Play()
+							hovering = false
+						end
+					end)
+
 				end
-				
+
 			end
-			
+
 		end
 		return Elements
 	end
