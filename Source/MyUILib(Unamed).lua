@@ -728,6 +728,182 @@ function Library:Create(TitleText)
 				end)
 			end)
 		end
+		
+		function Elements:WarningLabel(WarningText)
+			WarningText = WarningText or "Warning"
+			
+			local Warning = Instance.new("Frame")
+			local UIPadding_7 = Instance.new("UIPadding")
+			local Title_3 = Instance.new("TextLabel")
+			local Icon_4 = Instance.new("ImageLabel")
+			local UIPadding_8 = Instance.new("UIPadding")
+			local UICorner_5 = Instance.new("UICorner")
+			local UIStroke_6 = Instance.new("UIStroke")
+			
+			Warning.Name = "Warning"
+			Warning.Parent = NewTab
+			Warning.BackgroundColor3 = Color3.fromRGB(43, 36, 3)
+			Warning.Size = UDim2.new(1, 0, 0, 26)
+
+			UIPadding_7.Parent = Warning
+			UIPadding_7.PaddingBottom = UDim.new(0, 6)
+			UIPadding_7.PaddingLeft = UDim.new(0, 6)
+			UIPadding_7.PaddingRight = UDim.new(0, 6)
+			UIPadding_7.PaddingTop = UDim.new(0, 6)
+
+			Title_3.Name = "Title"
+			Title_3.Parent = Warning
+			Title_3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			Title_3.BackgroundTransparency = 1.000
+			Title_3.Size = UDim2.new(1, 0, 1, 0)
+			Title_3.Font = Enum.Font.Ubuntu
+			Title_3.Text = WarningText
+			Title_3.TextColor3 = Color3.fromRGB(255, 255, 255)
+			Title_3.TextSize = 14.000
+			Title_3.TextWrapped = true
+			Title_3.TextXAlignment = Enum.TextXAlignment.Left
+			Title_3.TextYAlignment = Enum.TextYAlignment.Top
+
+			Icon_4.Name = "Icon"
+			Icon_4.Parent = Title_3
+			Icon_4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			Icon_4.BackgroundTransparency = 1.000
+			Icon_4.Position = UDim2.new(0, -20, 0, 0)
+			Icon_4.Size = UDim2.new(0, 14, 0, 14)
+			Icon_4.Image = "rbxassetid://10889384842"
+			Icon_4.ImageColor3 = Color3.fromRGB(214, 178, 14)
+
+			UIPadding_8.Parent = Title_3
+			UIPadding_8.PaddingLeft = UDim.new(0, 20)
+
+			UICorner_5.CornerRadius = UDim.new(0, 4)
+			UICorner_5.Parent = Warning
+			
+			UIStroke_6.Name = "UIStroke"
+			UIStroke_6.Parent = Warning
+			UIStroke_6.ApplyStrokeMode = "Border"
+			UIStroke_6.Color = Color3.fromRGB(165, 137, 11)
+			UIStroke_6.LineJoinMode = "Round"
+			UIStroke_6.Thickness = 1
+			UIStroke_6.Transparency = 0
+			
+		end
+		
+		function Elements:InfoLabel(InfoText)
+			InfoText = InfoText or "Info"
+			
+			local Info = Instance.new("Frame")
+			local UIPadding_9 = Instance.new("UIPadding")
+			local Title_4 = Instance.new("TextLabel")
+			local Icon_5 = Instance.new("ImageLabel")
+			local UIPadding_10 = Instance.new("UIPadding")
+			local UICorner_6 = Instance.new("UICorner")
+			local UIStroke_7 = Instance.new("UIStroke")
+			
+			Info.Name = "Info"
+			Info.Parent = NewTab
+			Info.BackgroundColor3 = Color3.fromRGB(3, 32, 43)
+			Info.Size = UDim2.new(1, 0, 0, 26)
+
+			UIPadding_9.Parent = Info
+			UIPadding_9.PaddingBottom = UDim.new(0, 6)
+			UIPadding_9.PaddingLeft = UDim.new(0, 6)
+			UIPadding_9.PaddingRight = UDim.new(0, 6)
+			UIPadding_9.PaddingTop = UDim.new(0, 6)
+
+			Title_4.Name = "Title"
+			Title_4.Parent = Info
+			Title_4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			Title_4.BackgroundTransparency = 1.000
+			Title_4.Size = UDim2.new(1, 0, 1, 0)
+			Title_4.Font = Enum.Font.Ubuntu
+			Title_4.Text = InfoText
+			Title_4.TextColor3 = Color3.fromRGB(255, 255, 255)
+			Title_4.TextSize = 14.000
+			Title_4.TextXAlignment = Enum.TextXAlignment.Left
+
+			Icon_5.Name = "Icon"
+			Icon_5.Parent = Title_4
+			Icon_5.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			Icon_5.BackgroundTransparency = 1.000
+			Icon_5.Position = UDim2.new(0, -20, 0, 0)
+			Icon_5.Size = UDim2.new(0, 14, 0, 14)
+			Icon_5.Image = "rbxassetid://10889391188"
+			Icon_5.ImageColor3 = Color3.fromRGB(12, 170, 218)
+
+			UIPadding_10.Parent = Title_4
+			UIPadding_10.PaddingLeft = UDim.new(0, 20)
+
+			UICorner_6.CornerRadius = UDim.new(0, 4)
+			UICorner_6.Parent = Info
+			
+			UIStroke_7.Name = "UIStroke"
+			UIStroke_7.Parent = Info
+			UIStroke_7.ApplyStrokeMode = "Border"
+			UIStroke_7.Color = Color3.fromRGB(11, 136, 177)
+			UIStroke_7.LineJoinMode = "Round"
+			UIStroke_7.Thickness = 1
+			UIStroke_7.Transparency = 0
+			
+		end
+		
+		function Elements:Label(LableText)
+			LableText = LableText or "Label"
+			
+			local Label = Instance.new("Frame")
+			local UIPadding_11 = Instance.new("UIPadding")
+			local Title_5 = Instance.new("TextLabel")
+			local Icon_6 = Instance.new("ImageLabel")
+			local UIPadding_12 = Instance.new("UIPadding")
+			local UICorner_7 = Instance.new("UICorner")
+			local UIStroke_8 = Instance.new("UIStroke")
+			
+			Label.Name = "Label"
+			Label.Parent = NewTab
+			Label.BackgroundColor3 = Color3.fromRGB(26, 26, 26)
+			Label.Size = UDim2.new(1, 0, 0, 26)
+
+			UIPadding_11.Parent = Label
+			UIPadding_11.PaddingBottom = UDim.new(0, 6)
+			UIPadding_11.PaddingLeft = UDim.new(0, 6)
+			UIPadding_11.PaddingRight = UDim.new(0, 6)
+			UIPadding_11.PaddingTop = UDim.new(0, 6)
+
+			Title_5.Name = "Title"
+			Title_5.Parent = Label
+			Title_5.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			Title_5.BackgroundTransparency = 1.000
+			Title_5.Size = UDim2.new(1, 0, 1, 0)
+			Title_5.Font = Enum.Font.Ubuntu
+			Title_5.Text = LableText
+			Title_5.TextColor3 = Color3.fromRGB(255, 255, 255)
+			Title_5.TextSize = 14.000
+			Title_5.TextXAlignment = Enum.TextXAlignment.Left
+
+			Icon_6.Name = "Icon"
+			Icon_6.Parent = Title_5
+			Icon_6.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			Icon_6.BackgroundTransparency = 1.000
+			Icon_6.Position = UDim2.new(0, -20, 0, 0)
+			Icon_6.Size = UDim2.new(0, 14, 0, 14)
+			Icon_6.Image = "rbxassetid://10889394367"
+			Icon_6.ImageColor3 = Color3.fromRGB(127, 127, 127)
+
+			UIPadding_12.Parent = Title_5
+			UIPadding_12.PaddingLeft = UDim.new(0, 20)
+
+			UICorner_7.CornerRadius = UDim.new(0, 4)
+			UICorner_7.Parent = Label
+			
+			UIStroke_8.Name = "UIStroke"
+			UIStroke_8.Parent = Label
+			UIStroke_8.ApplyStrokeMode = "Border"
+			UIStroke_8.Color = Color3.fromRGB(81, 81, 81)
+			UIStroke_8.LineJoinMode = "Round"
+			UIStroke_8.Thickness = 1
+			UIStroke_8.Transparency = 0
+			
+		end
 		return Elements
 	end
 	return Tabs
