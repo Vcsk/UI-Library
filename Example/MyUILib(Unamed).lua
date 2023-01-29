@@ -1,18 +1,18 @@
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Vcsk/UI-Library/main/Source/MyUILib(Unamed).lua"))()
-local Window = Library:Window("Example")
+local Window = Library:Create("Example") -- any name
 
 local Tab1 = Window:Tab("Tab 1","rbxassetid://10888331510")
 local Tab2 = Window:Tab("Tab 2","rbxassetid://10888331510")
 
-Tab1:Button("Button 1", function()
+Tab1:Button("Button 1", function() -- button
 	print("Pressed Button 1!")
 end)
 
-Tab1:Toggle("Toggle 1", function(state)
+Tab1:Toggle("Toggle 1", function(state) -- toggle
 	print(state)
 end)
 
-Tab1:Slider("Slider 1", 1,100, function(value)
+Tab1:Slider("Slider 1", 1,100, function(value) -- slider | min,max
 	print(value)
 end)
 
