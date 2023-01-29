@@ -863,7 +863,7 @@ end
 )
 game:GetService("UserInputService").InputChanged:Connect(
 function(input)
-if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
+if dragging and input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
 move(input)
 end
 end
@@ -1299,7 +1299,7 @@ pcall(callback, BoxColor.BackgroundColor3)
 
 Color.InputBegan:Connect(
 function(input)
-if input.UserInputType == Enum.UserInputType.MouseButton1 then
+if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
 if RainbowColorPicker then
 return
 end
@@ -1331,7 +1331,7 @@ end
 
 Color.InputEnded:Connect(
 function(input)
-if input.UserInputType == Enum.UserInputType.MouseButton1 then
+if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
 if ColorInput then
 ColorInput:Disconnect()
 end
@@ -1341,7 +1341,7 @@ end
 
 Hue.InputBegan:Connect(
 function(input)
-if input.UserInputType == Enum.UserInputType.MouseButton1 then
+if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
 if RainbowColorPicker then
 return
 end
@@ -1369,7 +1369,7 @@ end
 
 Hue.InputEnded:Connect(
 function(input)
-if input.UserInputType == Enum.UserInputType.MouseButton1 then
+if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
 if HueInput then
 HueInput:Disconnect()
 end
