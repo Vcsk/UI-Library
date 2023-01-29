@@ -2,6 +2,7 @@ local Library = {}
 
 local tween = game:GetService("TweenService")
 local tweeninfo = TweenInfo.new
+local tweeninfo2 = TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut)
 local input = game:GetService("UserInputService")
 local run = game:GetService("RunService")
 local mouse = game.Players.LocalPlayer:GetMouse()
@@ -46,6 +47,12 @@ end
 
 function Utility:TweenObject(obj, properties, duration, ...)
 	tween:Create(obj, tweeninfo(duration, ...), properties):Play()
+end
+
+function Library:tween(object, goal, callback)
+	local tween = tween:Create(object, tweeninfo2, goal)
+	tween.Completed:Connect(callback or function() end)
+	tween:Play()
 end
 
 local LibName = "UI_"..tostring(math.random(1, 100))..tostring(math.random(1,50))..tostring(math.random(1, 100))
@@ -728,10 +735,12 @@ function Library:Create(TitleText)
 				end)
 			end)
 		end
-		
+
 		function Elements:WarningLabel(WarningText)
 			WarningText = WarningText or "Warning"
-			
+
+			local WarningLabell = {}
+
 			local Warning = Instance.new("Frame")
 			local UIPadding_7 = Instance.new("UIPadding")
 			local Title_3 = Instance.new("TextLabel")
@@ -739,7 +748,7 @@ function Library:Create(TitleText)
 			local UIPadding_8 = Instance.new("UIPadding")
 			local UICorner_5 = Instance.new("UICorner")
 			local UIStroke_6 = Instance.new("UIStroke")
-			
+
 			Warning.Name = "Warning"
 			Warning.Parent = NewTab
 			Warning.BackgroundColor3 = Color3.fromRGB(43, 36, 3)
@@ -778,7 +787,7 @@ function Library:Create(TitleText)
 
 			UICorner_5.CornerRadius = UDim.new(0, 4)
 			UICorner_5.Parent = Warning
-			
+
 			UIStroke_6.Name = "UIStroke"
 			UIStroke_6.Parent = Warning
 			UIStroke_6.ApplyStrokeMode = "Border"
@@ -786,12 +795,29 @@ function Library:Create(TitleText)
 			UIStroke_6.LineJoinMode = "Round"
 			UIStroke_6.Thickness = 1
 			UIStroke_6.Transparency = 0
-			
+
+			function WarningLabell:SetText(WarningLabelSetText)
+				WarningText = WarningLabelSetText
+				WarningLabell:_update()
+			end
+
+			function WarningLabell:_update()
+				Title_3.Text = WarningText
+
+				Title_3.Size = UDim2.new(Title_3.Size.X.Scale, Title_3.Size.X.Offset, 0, math.huge)
+				Title_3.Size = UDim2.new(Title_3.Size.X.Scale, Title_3.Size.X.Offset, 0, Title_3.TextBounds.Y)
+				Library:tween(Warning, {Size = UDim2.new(Warning.Size.X.Scale, Warning.Size.X.Offset, 0, Title_3.TextBounds.Y + 12)})
+			end
+
+			WarningLabell:_update()
+			return WarningLabell
 		end
-		
+
 		function Elements:InfoLabel(InfoText)
 			InfoText = InfoText or "Info"
-			
+
+			local InfoLabell = {}
+
 			local Info = Instance.new("Frame")
 			local UIPadding_9 = Instance.new("UIPadding")
 			local Title_4 = Instance.new("TextLabel")
@@ -799,7 +825,7 @@ function Library:Create(TitleText)
 			local UIPadding_10 = Instance.new("UIPadding")
 			local UICorner_6 = Instance.new("UICorner")
 			local UIStroke_7 = Instance.new("UIStroke")
-			
+
 			Info.Name = "Info"
 			Info.Parent = NewTab
 			Info.BackgroundColor3 = Color3.fromRGB(3, 32, 43)
@@ -818,9 +844,11 @@ function Library:Create(TitleText)
 			Title_4.Size = UDim2.new(1, 0, 1, 0)
 			Title_4.Font = Enum.Font.Ubuntu
 			Title_4.Text = InfoText
+			Title_4.TextWrapped = true
 			Title_4.TextColor3 = Color3.fromRGB(255, 255, 255)
 			Title_4.TextSize = 14.000
 			Title_4.TextXAlignment = Enum.TextXAlignment.Left
+			Title_4.TextYAlignment = Enum.TextYAlignment.Top
 
 			Icon_5.Name = "Icon"
 			Icon_5.Parent = Title_4
@@ -836,7 +864,7 @@ function Library:Create(TitleText)
 
 			UICorner_6.CornerRadius = UDim.new(0, 4)
 			UICorner_6.Parent = Info
-			
+
 			UIStroke_7.Name = "UIStroke"
 			UIStroke_7.Parent = Info
 			UIStroke_7.ApplyStrokeMode = "Border"
@@ -844,12 +872,30 @@ function Library:Create(TitleText)
 			UIStroke_7.LineJoinMode = "Round"
 			UIStroke_7.Thickness = 1
 			UIStroke_7.Transparency = 0
-			
+
+
+			function InfoLabell:SetText(InfoLabelSetText)
+				InfoText = InfoLabelSetText
+				InfoLabell:_update()
+			end
+
+			function InfoLabell:_update()
+				Title_4.Text = InfoText
+
+				Title_4.Size = UDim2.new(Title_4.Size.X.Scale, Title_4.Size.X.Offset, 0, math.huge)
+				Title_4.Size = UDim2.new(Title_4.Size.X.Scale, Title_4.Size.X.Offset, 0, Title_4.TextBounds.Y)
+				Library:tween(Info, {Size = UDim2.new(Info.Size.X.Scale, Info.Size.X.Offset, 0, Title_4.TextBounds.Y + 12)})
+			end
+
+			InfoLabell:_update()
+			return InfoLabell
 		end
-		
-		function Elements:Label(LableText)
-			LableText = LableText or "Label"
-			
+
+		function Elements:Label(LabelText)
+			LabelText = LabelText or "Label"
+
+			local Labell = {}
+
 			local Label = Instance.new("Frame")
 			local UIPadding_11 = Instance.new("UIPadding")
 			local Title_5 = Instance.new("TextLabel")
@@ -857,7 +903,7 @@ function Library:Create(TitleText)
 			local UIPadding_12 = Instance.new("UIPadding")
 			local UICorner_7 = Instance.new("UICorner")
 			local UIStroke_8 = Instance.new("UIStroke")
-			
+
 			Label.Name = "Label"
 			Label.Parent = NewTab
 			Label.BackgroundColor3 = Color3.fromRGB(26, 26, 26)
@@ -875,10 +921,12 @@ function Library:Create(TitleText)
 			Title_5.BackgroundTransparency = 1.000
 			Title_5.Size = UDim2.new(1, 0, 1, 0)
 			Title_5.Font = Enum.Font.Ubuntu
-			Title_5.Text = LableText
+			Title_5.Text = LabelText
+			Title_5.TextWrapped = true
 			Title_5.TextColor3 = Color3.fromRGB(255, 255, 255)
 			Title_5.TextSize = 14.000
 			Title_5.TextXAlignment = Enum.TextXAlignment.Left
+			Title_5.TextYAlignment = Enum.TextYAlignment.Top
 
 			Icon_6.Name = "Icon"
 			Icon_6.Parent = Title_5
@@ -894,7 +942,7 @@ function Library:Create(TitleText)
 
 			UICorner_7.CornerRadius = UDim.new(0, 4)
 			UICorner_7.Parent = Label
-			
+
 			UIStroke_8.Name = "UIStroke"
 			UIStroke_8.Parent = Label
 			UIStroke_8.ApplyStrokeMode = "Border"
@@ -902,7 +950,22 @@ function Library:Create(TitleText)
 			UIStroke_8.LineJoinMode = "Round"
 			UIStroke_8.Thickness = 1
 			UIStroke_8.Transparency = 0
-			
+
+			function Labell:SetText(LabelSetText)
+				LabelText = LabelSetText
+				Labell:_update()
+			end
+
+			function Labell:_update()
+				Title_5.Text = LabelText
+
+				Title_5.Size = UDim2.new(Title_5.Size.X.Scale, Title_5.Size.X.Offset, 0, math.huge)
+				Title_5.Size = UDim2.new(Title_5.Size.X.Scale, Title_5.Size.X.Offset, 0, Title_5.TextBounds.Y)
+				Library:tween(Label, {Size = UDim2.new(Label.Size.X.Scale, Label.Size.X.Offset, 0, Title_5.TextBounds.Y + 12)})
+			end
+
+			Labell:_update()
+			return Labell
 		end
 		return Elements
 	end
