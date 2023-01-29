@@ -4,6 +4,12 @@ local Window = Library:Create("Example") -- any name
 local Tab1 = Window:Tab("Tab 1","rbxassetid://10888331510")
 local Tab2 = Window:Tab("Players","rbxassetid://12296135476")
 
+Tab1:WarningLabel("This is a warning")
+
+Tab1:InfoLabel("This is a info")
+
+Tab1:Label("This is a label")
+
 Tab1:Button("Button 1", function() -- button
 	print("Pressed Button 1!")
 end)
