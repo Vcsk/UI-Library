@@ -269,6 +269,8 @@ function Library:Create(TitleText)
 	TabsFolder.Parent = ContentContainer
 
 	local Tabs = {}
+	
+	local first = true
 
 	function Tabs:Tab(TabText, TabIcon)
 		TabText = TabText or "Untitled"
@@ -284,7 +286,7 @@ function Library:Create(TitleText)
 		Active.Name = TabText.."_TabButton"
 		Active.Parent = ButtonHolder
 		Active.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		Active.BackgroundTransparency = 0.9
+		Active.BackgroundTransparency = 1
 		Active.BorderSizePixel = 0
 		Active.Size = UDim2.new(1, 0, 0, 28)
 		Active.Font = Enum.Font.Ubuntu
@@ -315,6 +317,7 @@ function Library:Create(TitleText)
 		NewTab.AutomaticCanvasSize = "Y"
 		NewTab.CanvasSize = UDim2.new(0, 0, 0, 0)
 		NewTab.ScrollBarThickness = 0
+		NewTab.Visible = false
 
 		UIPadding_5.Parent = NewTab
 		UIPadding_5.PaddingBottom = UDim.new(0, 1)
@@ -325,6 +328,15 @@ function Library:Create(TitleText)
 		UIListLayout_2.Parent = NewTab
 		UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
 		UIListLayout_2.Padding = UDim.new(0, 6)
+		
+		if first then
+			first = false
+			NewTab.Visible = true
+			Active.BackgroundTransparency = 0.9
+		else
+			NewTab.Visible = false
+			Active.BackgroundTransparency = 1
+		end
 
 		Active.MouseButton1Click:Connect(function()
 			for i,v in next, TabsFolder:GetChildren() do
@@ -353,7 +365,7 @@ function Library:Create(TitleText)
 		local Elements = {}
 
 		function Elements:Button(ButtonName, callback)
-			ButtonName = ButtonName or "Untitled"
+			ButtonName = ButtonName or "Button"
 			callback = callback or function() end
 
 			local Button = Instance.new("TextButton")
@@ -475,9 +487,123 @@ function Library:Create(TitleText)
 				end
 			end)
 		end
+		
+		function Elements:TextBox(TextBoxTitle, callback)
+			TextBoxTitle = TextBoxTitle or "TextBox"
+			callback = callback or function() end
+			
+			local TextBox = Instance.new("TextButton")
+			local UICorner_34 = Instance.new("UICorner")
+			local Title_12 = Instance.new("TextLabel")
+			local UIPadding_20 = Instance.new("UIPadding")
+			local UIStroke_9 = Instance.new("UIStroke")
+			local TextBox_2 = Instance.new("TextBox")
+			local UICorner_35 = Instance.new("UICorner")
+			local UIStroke_10 = Instance.new("UIStroke")
+			
+			TextBox.Name = "TextBox"
+			TextBox.Parent = NewTab
+			TextBox.BackgroundColor3 = Color3.fromRGB(26, 26, 26)
+			TextBox.ClipsDescendants = true
+			TextBox.Size = UDim2.new(1, 0, 0, 32)
+			TextBox.AutoButtonColor  = false
+			TextBox.Font = Enum.Font.SourceSans
+			TextBox.Text = ""
+			TextBox.TextColor3 = Color3.fromRGB(0, 0, 0)
+			TextBox.TextSize = 14.000
+
+			UICorner_34.CornerRadius = UDim.new(0, 4)
+			UICorner_34.Parent = TextBox
+
+			Title_12.Name = "Title"
+			Title_12.Parent = TextBox
+			Title_12.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			Title_12.BackgroundTransparency = 1.000
+			Title_12.Size = UDim2.new(0.750988126, -20, 1, 0)
+			Title_12.Font = Enum.Font.Ubuntu
+			Title_12.Text = TextBoxTitle
+			Title_12.TextColor3 = Color3.fromRGB(255, 255, 255)
+			Title_12.TextSize = 14.000
+			Title_12.TextXAlignment = Enum.TextXAlignment.Left
+
+			UIPadding_20.Parent = TextBox
+			UIPadding_20.PaddingBottom = UDim.new(0, 6)
+			UIPadding_20.PaddingLeft = UDim.new(0, 6)
+			UIPadding_20.PaddingRight = UDim.new(0, 6)
+			UIPadding_20.PaddingTop = UDim.new(0, 6)
+			
+			UIStroke_9.Name = "UIStroke"
+			UIStroke_9.Parent = TextBox
+			UIStroke_9.ApplyStrokeMode = "Border"
+			UIStroke_9.Color = Color3.fromRGB(81, 81, 81)
+			UIStroke_9.LineJoinMode = "Round"
+			UIStroke_9.Thickness = 1
+			UIStroke_9.Transparency = 0
+
+			TextBox_2.Parent = TextBox
+			TextBox_2.BackgroundColor3 = Color3.fromRGB(72, 72, 72)
+			TextBox_2.BorderSizePixel = 0
+			TextBox_2.ClipsDescendants = true
+			TextBox_2.Position = UDim2.new(0.691699624, 0, 0, 0)
+			TextBox_2.Size = UDim2.new(0, 75, 0, 20)
+			TextBox_2.ZIndex = 99
+			TextBox_2.ClearTextOnFocus = false
+			TextBox_2.Font = Enum.Font.Ubuntu
+			TextBox_2.PlaceholderText = "Type here!"
+			TextBox_2.Text = ""
+			TextBox_2.TextColor3 = Color3.fromRGB(255, 255, 255)
+			TextBox_2.TextSize = 12.000
+
+			UICorner_35.Parent = TextBox_2
+			
+			UIStroke_10.Name = "UIStroke"
+			UIStroke_10.Parent = TextBox_2
+			UIStroke_10.ApplyStrokeMode = "Border"
+			UIStroke_10.Color = Color3.fromRGB(136, 136, 136)
+			UIStroke_10.LineJoinMode = "Round"
+			UIStroke_10.Thickness = 1
+			UIStroke_10.Transparency = 0
+			
+			local btn = TextBox
+			
+			local hovering = false
+			btn.MouseEnter:Connect(function()
+				if not focusing then
+					game.TweenService:Create(btn, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+						BackgroundColor3 = Color3.fromRGB(54, 54, 54)
+					}):Play()
+					game.TweenService:Create(UIStroke_9, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+						Color = Color3.fromRGB(162, 162, 162)
+					}):Play()
+					hovering = true
+				end 
+			end)
+			btn.MouseLeave:Connect(function()
+				if not focusing then
+					game.TweenService:Create(btn, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+						BackgroundColor3 = Color3.fromRGB(26, 26, 26)
+					}):Play()
+					game.TweenService:Create(UIStroke_9, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+						Color = Color3.fromRGB(81, 81, 81)
+					}):Play()
+					hovering = false
+				end
+			end)
+			
+			TextBox_2.FocusLost:Connect(function(EnterPressed)
+				if not EnterPressed then 
+					return
+				else
+					callback(TextBox_2.Text)
+					wait(0.18)
+					TextBox.Text = ""  
+				end
+			end)
+			
+		end
 
 		function Elements:Toggle(ToggleName, callback)
-			ToggleName = ToggleName or "Untitled"
+			ToggleName = ToggleName or "Toggle"
 			callback = callback or function() end
 
 			local Toggle = Instance.new("TextButton")
@@ -641,7 +767,7 @@ function Library:Create(TitleText)
 		end
 
 		function Elements:Slider(SliderTitle, minvalue, maxvalue, callback)
-			SliderTitle = SliderTitle or "Untitled"
+			SliderTitle = SliderTitle or "Slider"
 			minvalue = minvalue or 0
 			maxvalue = maxvalue or 100
 			callback = callback or function() end
