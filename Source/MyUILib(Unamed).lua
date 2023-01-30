@@ -271,7 +271,7 @@ function Library:Create(TitleText)
 	local Tabs = {}
 
 	function Tabs:Tab(TabText, TabIcon)
-		TabText = TabText or "Untitled Tab"
+		TabText = TabText or "Untitled"
 		TabIcon = TabIcon or ""
 
 		local Active = Instance.new("TextButton")
@@ -353,7 +353,7 @@ function Library:Create(TitleText)
 		local Elements = {}
 
 		function Elements:Button(ButtonName, callback)
-			ButtonName = ButtonName or "Button"
+			ButtonName = ButtonName or "Untitled"
 			callback = callback or function() end
 
 			local Button = Instance.new("TextButton")
@@ -477,7 +477,7 @@ function Library:Create(TitleText)
 		end
 
 		function Elements:Toggle(ToggleName, callback)
-			ToggleName = ToggleName or ""
+			ToggleName = ToggleName or "Untitled"
 			callback = callback or function() end
 
 			local Toggle = Instance.new("TextButton")
@@ -766,7 +766,7 @@ function Library:Create(TitleText)
 		end
 
 		function Elements:WarningLabel(WarningText)
-			WarningText = WarningText or "Warning"
+			WarningText = WarningText or "This is a warning"
 
 			local WarningLabell = {}
 
@@ -843,7 +843,7 @@ function Library:Create(TitleText)
 		end
 
 		function Elements:InfoLabel(InfoText)
-			InfoText = InfoText or "Info"
+			InfoText = InfoText or "This is a info"
 
 			local InfoLabell = {}
 
@@ -921,7 +921,7 @@ function Library:Create(TitleText)
 		end
 
 		function Elements:Label(LabelText)
-			LabelText = LabelText or "Label"
+			LabelText = LabelText or "This is a label"
 
 			local Labell = {}
 
