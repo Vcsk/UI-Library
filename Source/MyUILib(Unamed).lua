@@ -715,7 +715,7 @@ function Library:Create(TitleText)
 						c:Destroy()
 					else
 						game.TweenService:Create(CheckmarkHolder, TweenInfo.new(0.15, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
-							BackgroundColor3 = Color3.fromRGB(61, 67, 74) 
+							BackgroundColor3 = Color3.fromRGB(63, 63, 63) 
 						}):Play()
 						game.TweenService:Create(UIStroke_3, TweenInfo.new(0.15, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
 							Color = Color3.fromRGB(81, 81, 81) 
