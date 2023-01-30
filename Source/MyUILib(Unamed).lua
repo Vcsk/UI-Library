@@ -66,7 +66,9 @@ function Library:ToggleUI()
 end
 
 function Library:DestroyUI()
-	game:GetService("CoreGui"):FindFirstChild(LibName):Destroy()
+	if game:GetService("CoreGui"):FindFirstChild(LibName) then
+		game:GetService("CoreGui"):FindFirstChild(LibName):Destroy()
+	end
 end
 
 function Library:Create(TitleText)
@@ -152,6 +154,19 @@ function Library:Create(TitleText)
 	Close.Size = UDim2.new(0, 14, 0, 14)
 	Close.Image = "rbxassetid://10884453403"
 	Close.MouseButton1Click:Connect(function()
+		game.TweenService:Create(Close, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {
+			ImageTransparency = 1
+		}):Play()
+		wait()
+		game.TweenService:Create(Main, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			Size = UDim2.new(0,0,0,0),
+			Position = UDim2.new(0, Main.AbsolutePosition.X + (Main.AbsoluteSize.X / 2), 0, Main.AbsolutePosition.Y + (Main.AbsoluteSize.Y / 2))
+		}):Play()
+		ContentContainer.Visible = false
+		Navigation.Visible = false
+		DropShadowHolder.Visible = false
+		TopBar.Visible = false
+		wait(1.5)
 		Library:DestroyUI()
 	end)
 
@@ -440,6 +455,9 @@ function Library:Create(TitleText)
 					game.TweenService:Create(btn, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
 						BackgroundColor3 = Color3.fromRGB(54, 54, 54)
 					}):Play()
+					game.TweenService:Create(UIStroke, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+						Color = Color3.fromRGB(162, 162, 162)
+					}):Play()
 					hovering = true
 				end
 			end)
@@ -447,6 +465,9 @@ function Library:Create(TitleText)
 				if not focusing then 
 					game.TweenService:Create(btn, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
 						BackgroundColor3 = Color3.fromRGB(26, 26, 26)
+					}):Play()
+					game.TweenService:Create(UIStroke, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+						Color = Color3.fromRGB(81, 81, 81)
 					}):Play()
 					hovering = false
 				end
@@ -598,6 +619,9 @@ function Library:Create(TitleText)
 					game.TweenService:Create(btn, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
 						BackgroundColor3 = Color3.fromRGB(54, 54, 54)
 					}):Play()
+					game.TweenService:Create(UIStroke_2, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+						Color = Color3.fromRGB(162, 162, 162)
+					}):Play()
 					hovering = true
 				end 
 			end)
@@ -605,6 +629,9 @@ function Library:Create(TitleText)
 				if not focusing then
 					game.TweenService:Create(btn, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
 						BackgroundColor3 = Color3.fromRGB(26, 26, 26)
+					}):Play()
+					game.TweenService:Create(UIStroke_2, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+						Color = Color3.fromRGB(81, 81, 81)
 					}):Play()
 					hovering = false
 				end
