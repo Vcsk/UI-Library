@@ -864,30 +864,32 @@ function Library:Create(TitleText)
 			UICorner_14.Parent = SliderButton
 
 			SliderButton.MouseButton1Down:Connect(function()
-				Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 255) * SliderInner.AbsoluteSize.X) + tonumber(minvalue)) or 0
-				pcall(function()
-					callback(Value)
-				end)
-				SliderInner.Size = UDim2.new(0, math.clamp(mouse.X - SliderInner.AbsolutePosition.X, 0, 255), 0, 4.5)
-				moveconnection = mouse.Move:Connect(function()
-					Valuee.Text = Value
-					Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 255) * SliderInner.AbsoluteSize.X) + tonumber(minvalue))
+				if not focusing then
+					Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 255) * SliderInner.AbsoluteSize.X) + tonumber(minvalue)) or 0
 					pcall(function()
 						callback(Value)
 					end)
 					SliderInner.Size = UDim2.new(0, math.clamp(mouse.X - SliderInner.AbsolutePosition.X, 0, 255), 0, 4.5)
-				end)
-				releaseconnection = input.InputEnded:Connect(function(Mouse)
-					if Mouse.UserInputType == Enum.UserInputType.MouseButton1 or Mouse.UserInputType == Enum.UserInputType.Touch then
+					moveconnection = mouse.Move:Connect(function()
+						Valuee.Text = Value
 						Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 255) * SliderInner.AbsoluteSize.X) + tonumber(minvalue))
 						pcall(function()
 							callback(Value)
 						end)
 						SliderInner.Size = UDim2.new(0, math.clamp(mouse.X - SliderInner.AbsolutePosition.X, 0, 255), 0, 4.5)
-						moveconnection:Disconnect()
-						releaseconnection:Disconnect()
-					end
-				end)
+					end)
+					releaseconnection = input.InputEnded:Connect(function(Mouse)
+						if Mouse.UserInputType == Enum.UserInputType.MouseButton1 or Mouse.UserInputType == Enum.UserInputType.Touch then
+							Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 255) * SliderInner.AbsoluteSize.X) + tonumber(minvalue))
+							pcall(function()
+								callback(Value)
+							end)
+							SliderInner.Size = UDim2.new(0, math.clamp(mouse.X - SliderInner.AbsolutePosition.X, 0, 255), 0, 4.5)
+							moveconnection:Disconnect()
+							releaseconnection:Disconnect()
+						end
+					end)
+				end
 			end)
 		end
 
