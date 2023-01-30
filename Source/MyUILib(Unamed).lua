@@ -312,6 +312,8 @@ function Library:Create(TitleText)
 		NewTab.BorderSizePixel = 0
 		NewTab.Selectable = false
 		NewTab.Size = UDim2.new(1, 0, 1, 0)
+		NewTab.AutomaticCanvasSize = "Y"
+		NewTab.CanvasSize = UDim2.new(0, 0, 0, 0)
 		NewTab.ScrollBarThickness = 0
 
 		UIPadding_5.Parent = NewTab
