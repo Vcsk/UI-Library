@@ -2,6 +2,7 @@ local Library = {}
 
 local tween = game:GetService("TweenService")
 local tweeninfo = TweenInfo.new
+local tweeninfo2 = TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut)
 local input = game:GetService("UserInputService")
 local run = game:GetService("RunService")
 local mouse = game.Players.LocalPlayer:GetMouse()
@@ -48,6 +49,12 @@ function Utility:TweenObject(obj, properties, duration, ...)
 	tween:Create(obj, tweeninfo(duration, ...), properties):Play()
 end
 
+function Library:tween(object, goal, callback)
+	local tween = tween:Create(object, tweeninfo2, goal)
+	tween.Completed:Connect(callback or function() end)
+	tween:Play()
+end
+
 local LibName = "UI_"..tostring(math.random(1, 100))..tostring(math.random(1,50))..tostring(math.random(1, 100))
 
 function Library:ToggleUI()
@@ -59,7 +66,9 @@ function Library:ToggleUI()
 end
 
 function Library:DestroyUI()
-	game:GetService("CoreGui"):FindFirstChild(LibName):Destroy()
+	if game:GetService("CoreGui"):FindFirstChild(LibName) then
+		game:GetService("CoreGui"):FindFirstChild(LibName):Destroy()
+	end
 end
 
 function Library:Create(TitleText)
@@ -145,6 +154,19 @@ function Library:Create(TitleText)
 	Close.Size = UDim2.new(0, 14, 0, 14)
 	Close.Image = "rbxassetid://10884453403"
 	Close.MouseButton1Click:Connect(function()
+		game.TweenService:Create(Close, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {
+			ImageTransparency = 1
+		}):Play()
+		wait()
+		game.TweenService:Create(Main, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			Size = UDim2.new(0,0,0,0),
+			Position = UDim2.new(0, Main.AbsolutePosition.X + (Main.AbsoluteSize.X / 2), 0, Main.AbsolutePosition.Y + (Main.AbsoluteSize.Y / 2))
+		}):Play()
+		ContentContainer.Visible = false
+		Navigation.Visible = false
+		DropShadowHolder.Visible = false
+		TopBar.Visible = false
+		wait(1.5)
 		Library:DestroyUI()
 	end)
 
@@ -247,9 +269,11 @@ function Library:Create(TitleText)
 	TabsFolder.Parent = ContentContainer
 
 	local Tabs = {}
+	
+	local first = true
 
 	function Tabs:Tab(TabText, TabIcon)
-		TabText = TabText or "Untitled Tab"
+		TabText = TabText or "Untitled"
 		TabIcon = TabIcon or ""
 
 		local Active = Instance.new("TextButton")
@@ -262,7 +286,7 @@ function Library:Create(TitleText)
 		Active.Name = TabText.."_TabButton"
 		Active.Parent = ButtonHolder
 		Active.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		Active.BackgroundTransparency = 0.9
+		Active.BackgroundTransparency = 1
 		Active.BorderSizePixel = 0
 		Active.Size = UDim2.new(1, 0, 0, 28)
 		Active.Font = Enum.Font.Ubuntu
@@ -290,7 +314,10 @@ function Library:Create(TitleText)
 		NewTab.BorderSizePixel = 0
 		NewTab.Selectable = false
 		NewTab.Size = UDim2.new(1, 0, 1, 0)
+		NewTab.AutomaticCanvasSize = "Y"
+		NewTab.CanvasSize = UDim2.new(0, 0, 0, 0)
 		NewTab.ScrollBarThickness = 0
+		NewTab.Visible = false
 
 		UIPadding_5.Parent = NewTab
 		UIPadding_5.PaddingBottom = UDim.new(0, 1)
@@ -301,6 +328,15 @@ function Library:Create(TitleText)
 		UIListLayout_2.Parent = NewTab
 		UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
 		UIListLayout_2.Padding = UDim.new(0, 6)
+		
+		if first then
+			first = false
+			NewTab.Visible = true
+			Active.BackgroundTransparency = 0.9
+		else
+			NewTab.Visible = false
+			Active.BackgroundTransparency = 1
+		end
 
 		Active.MouseButton1Click:Connect(function()
 			for i,v in next, TabsFolder:GetChildren() do
@@ -433,6 +469,9 @@ function Library:Create(TitleText)
 					game.TweenService:Create(btn, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
 						BackgroundColor3 = Color3.fromRGB(54, 54, 54)
 					}):Play()
+					game.TweenService:Create(UIStroke, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+						Color = Color3.fromRGB(162, 162, 162)
+					}):Play()
 					hovering = true
 				end
 			end)
@@ -441,13 +480,130 @@ function Library:Create(TitleText)
 					game.TweenService:Create(btn, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
 						BackgroundColor3 = Color3.fromRGB(26, 26, 26)
 					}):Play()
+					game.TweenService:Create(UIStroke, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+						Color = Color3.fromRGB(81, 81, 81)
+					}):Play()
 					hovering = false
 				end
 			end)
 		end
+		
+		function Elements:TextBox(TextBoxTitle, callback)
+			TextBoxTitle = TextBoxTitle or "TextBox"
+			callback = callback or function() end
+			
+			local TextBox = Instance.new("TextButton")
+			local UICorner_34 = Instance.new("UICorner")
+			local Title_12 = Instance.new("TextLabel")
+			local UIPadding_20 = Instance.new("UIPadding")
+			local UIStroke_9 = Instance.new("UIStroke")
+			local TextBox_2 = Instance.new("TextBox")
+			local UICorner_35 = Instance.new("UICorner")
+			local UIStroke_10 = Instance.new("UIStroke")
+			
+			TextBox.Name = "TextBox"
+			TextBox.Parent = NewTab
+			TextBox.BackgroundColor3 = Color3.fromRGB(26, 26, 26)
+			TextBox.ClipsDescendants = true
+			TextBox.Size = UDim2.new(1, 0, 0, 32)
+			TextBox.AutoButtonColor  = false
+			TextBox.Font = Enum.Font.SourceSans
+			TextBox.Text = ""
+			TextBox.TextColor3 = Color3.fromRGB(0, 0, 0)
+			TextBox.TextSize = 14.000
+
+			UICorner_34.CornerRadius = UDim.new(0, 4)
+			UICorner_34.Parent = TextBox
+
+			Title_12.Name = "Title"
+			Title_12.Parent = TextBox
+			Title_12.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			Title_12.BackgroundTransparency = 1.000
+			Title_12.Size = UDim2.new(0.750988126, -20, 1, 0)
+			Title_12.Font = Enum.Font.Ubuntu
+			Title_12.Text = TextBoxTitle
+			Title_12.TextColor3 = Color3.fromRGB(255, 255, 255)
+			Title_12.TextSize = 14.000
+			Title_12.TextXAlignment = Enum.TextXAlignment.Left
+
+			UIPadding_20.Parent = TextBox
+			UIPadding_20.PaddingBottom = UDim.new(0, 6)
+			UIPadding_20.PaddingLeft = UDim.new(0, 6)
+			UIPadding_20.PaddingRight = UDim.new(0, 6)
+			UIPadding_20.PaddingTop = UDim.new(0, 6)
+			
+			UIStroke_9.Name = "UIStroke"
+			UIStroke_9.Parent = TextBox
+			UIStroke_9.ApplyStrokeMode = "Border"
+			UIStroke_9.Color = Color3.fromRGB(81, 81, 81)
+			UIStroke_9.LineJoinMode = "Round"
+			UIStroke_9.Thickness = 1
+			UIStroke_9.Transparency = 0
+
+			TextBox_2.Parent = TextBox
+			TextBox_2.BackgroundColor3 = Color3.fromRGB(72, 72, 72)
+			TextBox_2.BorderSizePixel = 0
+			TextBox_2.ClipsDescendants = true
+			TextBox_2.Position = UDim2.new(0.691699624, 0, 0, 0)
+			TextBox_2.Size = UDim2.new(0, 75, 0, 20)
+			TextBox_2.ZIndex = 99
+			TextBox_2.ClearTextOnFocus = false
+			TextBox_2.Font = Enum.Font.Ubuntu
+			TextBox_2.PlaceholderText = "Type here!"
+			TextBox_2.Text = ""
+			TextBox_2.TextColor3 = Color3.fromRGB(255, 255, 255)
+			TextBox_2.TextSize = 12.000
+
+			UICorner_35.Parent = TextBox_2
+			
+			UIStroke_10.Name = "UIStroke"
+			UIStroke_10.Parent = TextBox_2
+			UIStroke_10.ApplyStrokeMode = "Border"
+			UIStroke_10.Color = Color3.fromRGB(136, 136, 136)
+			UIStroke_10.LineJoinMode = "Round"
+			UIStroke_10.Thickness = 1
+			UIStroke_10.Transparency = 0
+			
+			local btn = TextBox
+			
+			local hovering = false
+			btn.MouseEnter:Connect(function()
+				if not focusing then
+					game.TweenService:Create(btn, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+						BackgroundColor3 = Color3.fromRGB(54, 54, 54)
+					}):Play()
+					game.TweenService:Create(UIStroke_9, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+						Color = Color3.fromRGB(162, 162, 162)
+					}):Play()
+					hovering = true
+				end 
+			end)
+			btn.MouseLeave:Connect(function()
+				if not focusing then
+					game.TweenService:Create(btn, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+						BackgroundColor3 = Color3.fromRGB(26, 26, 26)
+					}):Play()
+					game.TweenService:Create(UIStroke_9, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+						Color = Color3.fromRGB(81, 81, 81)
+					}):Play()
+					hovering = false
+				end
+			end)
+			
+			TextBox_2.FocusLost:Connect(function(EnterPressed)
+				if not EnterPressed then 
+					return
+				else
+					callback(TextBox_2.Text)
+					wait(0.18)
+					TextBox.Text = ""  
+				end
+			end)
+			
+		end
 
 		function Elements:Toggle(ToggleName, callback)
-			ToggleName = ToggleName or ""
+			ToggleName = ToggleName or "Toggle"
 			callback = callback or function() end
 
 			local Toggle = Instance.new("TextButton")
@@ -559,7 +715,7 @@ function Library:Create(TitleText)
 						c:Destroy()
 					else
 						game.TweenService:Create(CheckmarkHolder, TweenInfo.new(0.15, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
-							BackgroundColor3 = Color3.fromRGB(61, 67, 74) 
+							BackgroundColor3 = Color3.fromRGB(63, 63, 63) 
 						}):Play()
 						game.TweenService:Create(UIStroke_3, TweenInfo.new(0.15, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
 							Color = Color3.fromRGB(81, 81, 81) 
@@ -591,6 +747,9 @@ function Library:Create(TitleText)
 					game.TweenService:Create(btn, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
 						BackgroundColor3 = Color3.fromRGB(54, 54, 54)
 					}):Play()
+					game.TweenService:Create(UIStroke_2, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+						Color = Color3.fromRGB(162, 162, 162)
+					}):Play()
 					hovering = true
 				end 
 			end)
@@ -599,13 +758,16 @@ function Library:Create(TitleText)
 					game.TweenService:Create(btn, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
 						BackgroundColor3 = Color3.fromRGB(26, 26, 26)
 					}):Play()
+					game.TweenService:Create(UIStroke_2, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+						Color = Color3.fromRGB(81, 81, 81)
+					}):Play()
 					hovering = false
 				end
 			end)
 		end
 
 		function Elements:Slider(SliderTitle, minvalue, maxvalue, callback)
-			SliderTitle = SliderTitle or "Untitled"
+			SliderTitle = SliderTitle or "Slider"
 			minvalue = minvalue or 0
 			maxvalue = maxvalue or 100
 			callback = callback or function() end
@@ -666,7 +828,7 @@ function Library:Create(TitleText)
 			Valuee.Position = UDim2.new(1, 0, 0, 0)
 			Valuee.Size = UDim2.new(0, 24, 1, -10)
 			Valuee.Font = Enum.Font.Ubuntu
-			Valuee.Text = "0"
+			Valuee.Text = minvalue
 			Valuee.TextColor3 = Color3.fromRGB(255, 255, 255)
 			Valuee.TextSize = 14.000
 			Valuee.TextXAlignment = Enum.TextXAlignment.Right
@@ -702,49 +864,268 @@ function Library:Create(TitleText)
 			UICorner_14.Parent = SliderButton
 
 			SliderButton.MouseButton1Down:Connect(function()
-				Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 255) * SliderInner.AbsoluteSize.X) + tonumber(minvalue)) or 0
-				pcall(function()
-					callback(Value)
-				end)
-				SliderInner.Size = UDim2.new(0, math.clamp(mouse.X - SliderInner.AbsolutePosition.X, 0, 255), 0, 4.5)
-				moveconnection = mouse.Move:Connect(function()
-					Valuee.Text = Value
-					Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 255) * SliderInner.AbsoluteSize.X) + tonumber(minvalue))
+				if not focusing then
+					Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 255) * SliderInner.AbsoluteSize.X) + tonumber(minvalue)) or 0
 					pcall(function()
 						callback(Value)
 					end)
 					SliderInner.Size = UDim2.new(0, math.clamp(mouse.X - SliderInner.AbsolutePosition.X, 0, 255), 0, 4.5)
-				end)
-				releaseconnection = input.InputEnded:Connect(function(Mouse)
-					if Mouse.UserInputType == Enum.UserInputType.MouseButton1 or Mouse.UserInputType == Enum.UserInputType.Touch then
+					moveconnection = mouse.Move:Connect(function()
+						Valuee.Text = Value
 						Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 255) * SliderInner.AbsoluteSize.X) + tonumber(minvalue))
 						pcall(function()
 							callback(Value)
 						end)
 						SliderInner.Size = UDim2.new(0, math.clamp(mouse.X - SliderInner.AbsolutePosition.X, 0, 255), 0, 4.5)
-						moveconnection:Disconnect()
-						releaseconnection:Disconnect()
-					end
-				end)
+					end)
+					releaseconnection = input.InputEnded:Connect(function(Mouse)
+						if Mouse.UserInputType == Enum.UserInputType.MouseButton1 or Mouse.UserInputType == Enum.UserInputType.Touch then
+							Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 255) * SliderInner.AbsoluteSize.X) + tonumber(minvalue))
+							pcall(function()
+								callback(Value)
+							end)
+							SliderInner.Size = UDim2.new(0, math.clamp(mouse.X - SliderInner.AbsolutePosition.X, 0, 255), 0, 4.5)
+							moveconnection:Disconnect()
+							releaseconnection:Disconnect()
+						end
+					end)
+				end
 			end)
+		end
+
+		function Elements:WarningLabel(WarningText)
+			WarningText = WarningText or "This is a warning"
+
+			local WarningLabell = {}
+
+			local Warning = Instance.new("Frame")
+			local UIPadding_7 = Instance.new("UIPadding")
+			local Title_3 = Instance.new("TextLabel")
+			local Icon_4 = Instance.new("ImageLabel")
+			local UIPadding_8 = Instance.new("UIPadding")
+			local UICorner_5 = Instance.new("UICorner")
+			local UIStroke_6 = Instance.new("UIStroke")
+
+			Warning.Name = "Warning"
+			Warning.Parent = NewTab
+			Warning.BackgroundColor3 = Color3.fromRGB(43, 36, 3)
+			Warning.Size = UDim2.new(1, 0, 0, 26)
+
+			UIPadding_7.Parent = Warning
+			UIPadding_7.PaddingBottom = UDim.new(0, 6)
+			UIPadding_7.PaddingLeft = UDim.new(0, 6)
+			UIPadding_7.PaddingRight = UDim.new(0, 6)
+			UIPadding_7.PaddingTop = UDim.new(0, 6)
+
+			Title_3.Name = "Title"
+			Title_3.Parent = Warning
+			Title_3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			Title_3.BackgroundTransparency = 1.000
+			Title_3.Size = UDim2.new(1, 0, 1, 0)
+			Title_3.Font = Enum.Font.Ubuntu
+			Title_3.Text = WarningText
+			Title_3.TextColor3 = Color3.fromRGB(255, 255, 255)
+			Title_3.TextSize = 14.000
+			Title_3.TextWrapped = true
+			Title_3.TextXAlignment = Enum.TextXAlignment.Left
+			Title_3.TextYAlignment = Enum.TextYAlignment.Top
+
+			Icon_4.Name = "Icon"
+			Icon_4.Parent = Title_3
+			Icon_4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			Icon_4.BackgroundTransparency = 1.000
+			Icon_4.Position = UDim2.new(0, -20, 0, 0)
+			Icon_4.Size = UDim2.new(0, 14, 0, 14)
+			Icon_4.Image = "rbxassetid://10889384842"
+			Icon_4.ImageColor3 = Color3.fromRGB(214, 178, 14)
+
+			UIPadding_8.Parent = Title_3
+			UIPadding_8.PaddingLeft = UDim.new(0, 20)
+
+			UICorner_5.CornerRadius = UDim.new(0, 4)
+			UICorner_5.Parent = Warning
+
+			UIStroke_6.Name = "UIStroke"
+			UIStroke_6.Parent = Warning
+			UIStroke_6.ApplyStrokeMode = "Border"
+			UIStroke_6.Color = Color3.fromRGB(165, 137, 11)
+			UIStroke_6.LineJoinMode = "Round"
+			UIStroke_6.Thickness = 1
+			UIStroke_6.Transparency = 0
+
+			function WarningLabell:SetText(WarningLabelSetText)
+				WarningText = WarningLabelSetText
+				WarningLabell:_update()
+			end
+
+			function WarningLabell:_update()
+				Title_3.Text = WarningText
+
+				Title_3.Size = UDim2.new(Title_3.Size.X.Scale, Title_3.Size.X.Offset, 0, math.huge)
+				Title_3.Size = UDim2.new(Title_3.Size.X.Scale, Title_3.Size.X.Offset, 0, Title_3.TextBounds.Y)
+				Library:tween(Warning, {Size = UDim2.new(Warning.Size.X.Scale, Warning.Size.X.Offset, 0, Title_3.TextBounds.Y + 12)})
+			end
+
+			WarningLabell:_update()
+			return WarningLabell
+		end
+
+		function Elements:InfoLabel(InfoText)
+			InfoText = InfoText or "This is a info"
+
+			local InfoLabell = {}
+
+			local Info = Instance.new("Frame")
+			local UIPadding_9 = Instance.new("UIPadding")
+			local Title_4 = Instance.new("TextLabel")
+			local Icon_5 = Instance.new("ImageLabel")
+			local UIPadding_10 = Instance.new("UIPadding")
+			local UICorner_6 = Instance.new("UICorner")
+			local UIStroke_7 = Instance.new("UIStroke")
+
+			Info.Name = "Info"
+			Info.Parent = NewTab
+			Info.BackgroundColor3 = Color3.fromRGB(3, 32, 43)
+			Info.Size = UDim2.new(1, 0, 0, 26)
+
+			UIPadding_9.Parent = Info
+			UIPadding_9.PaddingBottom = UDim.new(0, 6)
+			UIPadding_9.PaddingLeft = UDim.new(0, 6)
+			UIPadding_9.PaddingRight = UDim.new(0, 6)
+			UIPadding_9.PaddingTop = UDim.new(0, 6)
+
+			Title_4.Name = "Title"
+			Title_4.Parent = Info
+			Title_4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			Title_4.BackgroundTransparency = 1.000
+			Title_4.Size = UDim2.new(1, 0, 1, 0)
+			Title_4.Font = Enum.Font.Ubuntu
+			Title_4.Text = InfoText
+			Title_4.TextWrapped = true
+			Title_4.TextColor3 = Color3.fromRGB(255, 255, 255)
+			Title_4.TextSize = 14.000
+			Title_4.TextXAlignment = Enum.TextXAlignment.Left
+			Title_4.TextYAlignment = Enum.TextYAlignment.Top
+
+			Icon_5.Name = "Icon"
+			Icon_5.Parent = Title_4
+			Icon_5.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			Icon_5.BackgroundTransparency = 1.000
+			Icon_5.Position = UDim2.new(0, -20, 0, 0)
+			Icon_5.Size = UDim2.new(0, 14, 0, 14)
+			Icon_5.Image = "rbxassetid://10889391188"
+			Icon_5.ImageColor3 = Color3.fromRGB(12, 170, 218)
+
+			UIPadding_10.Parent = Title_4
+			UIPadding_10.PaddingLeft = UDim.new(0, 20)
+
+			UICorner_6.CornerRadius = UDim.new(0, 4)
+			UICorner_6.Parent = Info
+
+			UIStroke_7.Name = "UIStroke"
+			UIStroke_7.Parent = Info
+			UIStroke_7.ApplyStrokeMode = "Border"
+			UIStroke_7.Color = Color3.fromRGB(11, 136, 177)
+			UIStroke_7.LineJoinMode = "Round"
+			UIStroke_7.Thickness = 1
+			UIStroke_7.Transparency = 0
+
+
+			function InfoLabell:SetText(InfoLabelSetText)
+				InfoText = InfoLabelSetText
+				InfoLabell:_update()
+			end
+
+			function InfoLabell:_update()
+				Title_4.Text = InfoText
+
+				Title_4.Size = UDim2.new(Title_4.Size.X.Scale, Title_4.Size.X.Offset, 0, math.huge)
+				Title_4.Size = UDim2.new(Title_4.Size.X.Scale, Title_4.Size.X.Offset, 0, Title_4.TextBounds.Y)
+				Library:tween(Info, {Size = UDim2.new(Info.Size.X.Scale, Info.Size.X.Offset, 0, Title_4.TextBounds.Y + 12)})
+			end
+
+			InfoLabell:_update()
+			return InfoLabell
+		end
+
+		function Elements:Label(LabelText)
+			LabelText = LabelText or "This is a label"
+
+			local Labell = {}
+
+			local Label = Instance.new("Frame")
+			local UIPadding_11 = Instance.new("UIPadding")
+			local Title_5 = Instance.new("TextLabel")
+			local Icon_6 = Instance.new("ImageLabel")
+			local UIPadding_12 = Instance.new("UIPadding")
+			local UICorner_7 = Instance.new("UICorner")
+			local UIStroke_8 = Instance.new("UIStroke")
+
+			Label.Name = "Label"
+			Label.Parent = NewTab
+			Label.BackgroundColor3 = Color3.fromRGB(26, 26, 26)
+			Label.Size = UDim2.new(1, 0, 0, 26)
+
+			UIPadding_11.Parent = Label
+			UIPadding_11.PaddingBottom = UDim.new(0, 6)
+			UIPadding_11.PaddingLeft = UDim.new(0, 6)
+			UIPadding_11.PaddingRight = UDim.new(0, 6)
+			UIPadding_11.PaddingTop = UDim.new(0, 6)
+
+			Title_5.Name = "Title"
+			Title_5.Parent = Label
+			Title_5.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			Title_5.BackgroundTransparency = 1.000
+			Title_5.Size = UDim2.new(1, 0, 1, 0)
+			Title_5.Font = Enum.Font.Ubuntu
+			Title_5.Text = LabelText
+			Title_5.TextWrapped = true
+			Title_5.TextColor3 = Color3.fromRGB(255, 255, 255)
+			Title_5.TextSize = 14.000
+			Title_5.TextXAlignment = Enum.TextXAlignment.Left
+			Title_5.TextYAlignment = Enum.TextYAlignment.Top
+
+			Icon_6.Name = "Icon"
+			Icon_6.Parent = Title_5
+			Icon_6.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			Icon_6.BackgroundTransparency = 1.000
+			Icon_6.Position = UDim2.new(0, -20, 0, 0)
+			Icon_6.Size = UDim2.new(0, 14, 0, 14)
+			Icon_6.Image = "rbxassetid://10889394367"
+			Icon_6.ImageColor3 = Color3.fromRGB(127, 127, 127)
+
+			UIPadding_12.Parent = Title_5
+			UIPadding_12.PaddingLeft = UDim.new(0, 20)
+
+			UICorner_7.CornerRadius = UDim.new(0, 4)
+			UICorner_7.Parent = Label
+
+			UIStroke_8.Name = "UIStroke"
+			UIStroke_8.Parent = Label
+			UIStroke_8.ApplyStrokeMode = "Border"
+			UIStroke_8.Color = Color3.fromRGB(81, 81, 81)
+			UIStroke_8.LineJoinMode = "Round"
+			UIStroke_8.Thickness = 1
+			UIStroke_8.Transparency = 0
+
+			function Labell:SetText(LabelSetText)
+				LabelText = LabelSetText
+				Labell:_update()
+			end
+
+			function Labell:_update()
+				Title_5.Text = LabelText
+
+				Title_5.Size = UDim2.new(Title_5.Size.X.Scale, Title_5.Size.X.Offset, 0, math.huge)
+				Title_5.Size = UDim2.new(Title_5.Size.X.Scale, Title_5.Size.X.Offset, 0, Title_5.TextBounds.Y)
+				Library:tween(Label, {Size = UDim2.new(Label.Size.X.Scale, Label.Size.X.Offset, 0, Title_5.TextBounds.Y + 12)})
+			end
+
+			Labell:_update()
+			return Labell
 		end
 		return Elements
 	end
 	return Tabs
 end
-
-local Window = Library:Create("Test 123") -- any name u want | example : local Window = Library:Create("My Hub")
-
-local Tab1 = Window:Tab("Tab 1","") -- Tab name and tab icon
-
-Tab1:Toggle("Toggle", function(state) -- toggle
-	print(state)
-end)
-
-Tab1:Button("Button", function() -- button
-	print("Pressed Button!")
-end)
-
-Tab1:Slider("Slider", 16,500, function(value) -- slider \ min,max
-	print(value)
-end)
+return Library
