@@ -828,7 +828,7 @@ function Library:Create(TitleText)
 			Valuee.Position = UDim2.new(1, 0, 0, 0)
 			Valuee.Size = UDim2.new(0, 24, 1, -10)
 			Valuee.Font = Enum.Font.Ubuntu
-			Valuee.Text = "0"
+			Valuee.Text = minvalue
 			Valuee.TextColor3 = Color3.fromRGB(255, 255, 255)
 			Valuee.TextSize = 14.000
 			Valuee.TextXAlignment = Enum.TextXAlignment.Right
