@@ -291,7 +291,7 @@ function Library:Create(TitleText)
 		Active.Size = UDim2.new(1, 0, 0, 28)
 		Active.Font = Enum.Font.Ubuntu
 		Active.Text = TabText
-		Active.TextColor3 = Color3.fromRGB(255, 255, 255)
+		Active.TextColor3 = Color3.fromRGB(199, 199, 199)
 		Active.TextSize = 12.000
 		Active.TextXAlignment = Enum.TextXAlignment.Left
 
