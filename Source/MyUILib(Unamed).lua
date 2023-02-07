@@ -10,6 +10,7 @@ local focusing = false
 
 local Utility = {}
 local Objects = {}
+
 function Library:DraggingEnabled(frame, parent)
 
 	parent = parent or frame
@@ -333,9 +334,11 @@ function Library:Create(TitleText)
 			first = false
 			NewTab.Visible = true
 			Active.BackgroundTransparency = 0.9
+			Active.TextColor3 = Color3.fromRGB(255, 255, 255)
 		else
 			NewTab.Visible = false
 			Active.BackgroundTransparency = 1
+			Active.TextColor3 = Color3.fromRGB(199, 199, 199)
 		end
 
 		Active.MouseButton1Click:Connect(function()
@@ -361,8 +364,72 @@ function Library:Create(TitleText)
 				TextColor3 = Color3.fromRGB(255, 255, 255)
 			}):Play()
 		end)
-
+		
 		local Elements = {}
+		
+		function Elements:Section(title)
+			title = title or "Section"
+
+			local Section = Instance.new("Frame")
+			local Title_idk = Instance.new("TextLabel")
+			local Thing = Instance.new("TextLabel")
+			local UIPadding_idk = Instance.new("UIPadding")
+			local Thing2 = Instance.new("TextLabel")
+			local UIPadding_idkk = Instance.new("UIPadding")
+			local UIPadding_idkkk = Instance.new("UIPadding")
+
+			Section.Name = "Section"
+			Section.Parent = NewTab
+			Section.BackgroundColor3 = Color3.fromRGB(26, 26, 26)
+			Section.BackgroundTransparency = 1.000
+			Section.Position = UDim2.new(0, 0, 0.430411309, 0)
+			Section.Size = UDim2.new(1, 0, -0.0561393984, 32)
+
+			Title_idk.Name = "Title"
+			Title_idk.Parent = Section
+			Title_idk.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			Title_idk.BackgroundTransparency = 1.000
+			Title_idk.Position = UDim2.new(0.35253039, 0, -0.303296119, 0)
+			Title_idk.Size = UDim2.new(0.339169234, -20, 1, 0)
+			Title_idk.Font = Enum.Font.Ubuntu
+			Title_idk.Text = title
+			Title_idk.TextColor3 = Color3.fromRGB(255, 255, 255)
+			Title_idk.TextSize = 14.000
+
+			Thing.Name = "Thing"
+			Thing.Parent = Section
+			Thing.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			Thing.BackgroundTransparency = 1.000
+			Thing.Position = UDim2.new(0.637247145, 0, -0.303296119, 0)
+			Thing.Size = UDim2.new(0.307416946, -20, 1, 0)
+			Thing.Font = Enum.Font.Ubuntu
+			Thing.Text = "_____"
+			Thing.TextColor3 = Color3.fromRGB(255, 255, 255)
+			Thing.TextSize = 14.000
+
+			UIPadding_idk.Parent = Thing
+			UIPadding_idk.PaddingBottom = UDim.new(0, 10)
+
+			Thing2.Name = "Thing2"
+			Thing2.Parent = Section
+			Thing2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			Thing2.BackgroundTransparency = 1.000
+			Thing2.Position = UDim2.new(0.0976673365, 0, -0.303296119, 0)
+			Thing2.Size = UDim2.new(0.335968375, -20, 1, 0)
+			Thing2.Font = Enum.Font.Ubuntu
+			Thing2.Text = "_____"
+			Thing2.TextColor3 = Color3.fromRGB(255, 255, 255)
+			Thing2.TextSize = 14.000
+
+			UIPadding_idkk.Parent = Thing2
+			UIPadding_idkk.PaddingBottom = UDim.new(0, 10)
+
+			UIPadding_idkkk.Parent = Section
+			UIPadding_idkkk.PaddingBottom = UDim.new(0, 6)
+			UIPadding_idkkk.PaddingLeft = UDim.new(0, 6)
+			UIPadding_idkkk.PaddingRight = UDim.new(0, 6)
+			UIPadding_idkkk.PaddingTop = UDim.new(0, 6)
+		end
 
 		function Elements:Button(ButtonName, callback)
 			ButtonName = ButtonName or "Button"
