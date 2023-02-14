@@ -85,7 +85,7 @@ end
 )
 end
 
-function lib:Window(text, preset, closebind, loadingtitle)
+function lib:Window(text, loadingtitle, preset, closebind)
 CloseBind = closebind or Enum.KeyCode.RightControl
 PresetColor = preset or Color3.fromRGB(44, 120, 224)
 loadingtitle = loadingtitle or "Untitled"
