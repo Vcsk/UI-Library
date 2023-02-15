@@ -72,6 +72,32 @@ function Library:DestroyUI()
 	end
 end
 
+function Library:CreateToggleGUI(textt, textcolorr, backgroundcolorr, sizee, draggablee)
+    local ToggleGui = Instance.new("ScreenGui")
+    local Toggle = Instance.new("TextButton")
+    
+    ToggleGui.Name = LibName
+    ToggleGui.Parent = game.CoreGui
+    
+    Toggle.Name = "Toggle"
+    Toggle.Parent = ToggleGui
+    Toggle.BackgroundColor3 = backgroundcolorr
+    Toggle.BackgroundTransparency = 0.660
+    Toggle.Position = UDim2.new(0, 0, 0.454706937, 0)
+    Toggle.Size = UDim2.new(0.0650164187, 0, 0.0888099447, 0)
+    Toggle.Font = Enum.Font.SourceSans
+    Toggle.Text = textt
+    Toggle.TextScaled = true
+    Toggle.TextColor3 = textcolorr
+    Toggle.TextSize = 24.000
+    Toggle.TextXAlignment = Enum.TextXAlignment.Left
+    Toggle.Active = draggablee
+    Toggle.Draggable = draggablee
+    Toggle.MouseButton1Click:connect(function()
+        Library:ToggleUI()
+    end)
+end
+
 function Library:Create(TitleText)
 	TitleText = TitleText or "Untitled"
 
