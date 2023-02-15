@@ -1195,31 +1195,4 @@ function Library:Create(TitleText)
 	end
 	return Tabs
 end
-
-local Window = Library:Create("Test 123") -- any name u want | example : local Window = Library:Create("My Hub")
-
-local Tab1 = Window:Tab("Tab 1","") -- Tab name and tab icon
-
-Tab1:Section("Section") -- section
-
-Tab1:WarningLabel("This is a warning")
-
-Tab1:InfoLabel("This is a info")
-
-Tab1:Label("This is a label")
-
-Tab1:Toggle("Toggle", function(state) -- toggle
-	print(state)
-end)
-
-Tab1:Button("Button", function() -- button
-	print("Pressed Button!")
-end)
-
-Tab1:Slider("Slider", 16,500, function(value) -- slider \ min,max
-	print(value)
-end)
-
-Tab1:TextBox("TextBox", function(txt)
-	print(txt)
-end)
+return Library
