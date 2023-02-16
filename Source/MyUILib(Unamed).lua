@@ -72,7 +72,7 @@ function Library:DestroyUI()
 	end
 end
 
-function Library:CreateToggleGUI(textt, textcolorr, backgroundcolorr, sizee, draggablee)
+function Library:CreateToggleGUI(textt, textcolorr, backgroundcolorr)
     local ToggleGui = Instance.new("ScreenGui")
     local Toggle = Instance.new("TextButton")
     
