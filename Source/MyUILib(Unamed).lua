@@ -72,32 +72,6 @@ function Library:DestroyUI()
 	end
 end
 
-function Library:CreateToggleGUI(textt, textcolorr, backgroundcolorr)
-    local ToggleGui = Instance.new("ScreenGui")
-    local Toggle = Instance.new("TextButton")
-    
-    ToggleGui.Name = LibName
-    ToggleGui.Parent = game.CoreGui
-    
-    Toggle.Name = "Toggle"
-    Toggle.Parent = ToggleGui
-    Toggle.BackgroundColor3 = backgroundcolorr
-    Toggle.BackgroundTransparency = 0.660
-    Toggle.Position = UDim2.new(0, 0, 0.454706937, 0)
-    Toggle.Size = UDim2.new(0.0650164187, 0, 0.0888099447, 0)
-    Toggle.Font = Enum.Font.SourceSans
-    Toggle.Text = textt
-    Toggle.TextScaled = true
-    Toggle.TextColor3 = textcolorr
-    Toggle.TextSize = 24.000
-    Toggle.TextXAlignment = Enum.TextXAlignment.Left
-    Toggle.Active = draggablee
-    Toggle.Draggable = draggablee
-    Toggle.MouseButton1Click:connect(function()
-        Library:ToggleUI()
-    end)
-end
-
 function Library:Create(TitleText)
 	TitleText = TitleText or "Untitled"
 
@@ -984,6 +958,167 @@ function Library:Create(TitleText)
 					end)
 				end
 			end)
+		end
+		
+		function Elements:Keybind(KeybindTitle, first, callback)
+			KeybindTitle = KeybindTitle or "Untitled"
+			callback = callback or function() end
+			
+			local oldKey = first.Name
+			local Keybind = Instance.new("TextButton")
+			local UICorner_36 = Instance.new("UICorner")
+			local Title_14 = Instance.new("TextLabel")
+			local UIPadding_24 = Instance.new("UIPadding")
+			local Sample = Instance.new("ImageLabel")
+			local Box = Instance.new("Frame")
+			local UICorner_37 = Instance.new("UICorner")
+			local KeybindC = Instance.new("TextLabel")
+			local UIPadding_25 = Instance.new("UIPadding")
+			local UIStroke_Idk791 = Instance.new("UIStroke")
+			local UIStroke_qqqaa = Instance.new("UIStroke")
+			
+			local ms = game.Players.LocalPlayer:GetMouse()
+			local uis = game:GetService("UserInputService")
+			
+			local sample = Sample
+			local btn = Keybind
+			
+			Keybind.Name = "Keybind"
+			Keybind.Parent = NewTab
+			Keybind.BackgroundColor3 = Color3.fromRGB(26, 26, 26)
+			Keybind.ClipsDescendants = true
+			Keybind.Size = UDim2.new(1, 0, 0, 32)
+			Keybind.AutoButtonColor = false
+			Keybind.Font = Enum.Font.SourceSans
+			Keybind.Text = ""
+			Keybind.TextColor3 = Color3.fromRGB(0, 0, 0)
+			Keybind.TextSize = 14.000
+			Keybind.MouseButton1Click:connect(function() 
+				if not focusing then
+					KeybindC.Text = ". . ."
+					local a, b = game:GetService('UserInputService').InputBegan:wait();
+					if a.KeyCode.Name ~= "Unknown" then
+						KeybindC.Text = a.KeyCode.Name
+						oldKey = a.KeyCode.Name;
+					end
+					local c = sample:Clone()
+					c.Parent = btn
+					local x, y = (ms.X - c.AbsolutePosition.X), (ms.Y - c.AbsolutePosition.Y)
+					c.Position = UDim2.new(0, x, 0, y)
+					local len, size = 0.35, nil
+					if btn.AbsoluteSize.X >= btn.AbsoluteSize.Y then
+						size = (btn.AbsoluteSize.X * 1.5)
+					else
+						size = (btn.AbsoluteSize.Y * 1.5)
+					end
+					c:TweenSizeAndPosition(UDim2.new(0, size, 0, size), UDim2.new(0.5, (-size / 2), 0.5, (-size / 2)), 'Out', 'Quad', len, true, nil)
+					for i = 1, 10 do
+						c.ImageTransparency = c.ImageTransparency + 0.05
+						wait(len / 12)
+					end
+					c:Destroy()
+				end
+			end)
+
+			game:GetService("UserInputService").InputBegan:connect(function(current, ok) 
+				if not ok then 
+					if current.KeyCode.Name == oldKey then 
+						callback()
+					end
+				end
+			end)
+			local hovering = false
+			btn.MouseEnter:Connect(function()
+				if not focusing then
+					game.TweenService:Create(btn, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+						BackgroundColor3 = Color3.fromRGB(54, 54, 54)
+					}):Play()
+					game.TweenService:Create(UIStroke_Idk791, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+						Color = Color3.fromRGB(162, 162, 162)
+					}):Play()
+					hovering = true
+				end 
+			end)
+			btn.MouseLeave:Connect(function()
+				if not focusing then
+					game.TweenService:Create(btn, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+						BackgroundColor3 = Color3.fromRGB(26, 26, 26)
+					}):Play()
+					game.TweenService:Create(UIStroke_Idk791, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+						Color = Color3.fromRGB(81, 81, 81)
+					}):Play()
+					hovering = false
+				end
+			end)
+
+			UICorner_36.CornerRadius = UDim.new(0, 4)
+			UICorner_36.Parent = Keybind
+
+			Title_14.Name = "Title"
+			Title_14.Parent = Keybind
+			Title_14.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			Title_14.BackgroundTransparency = 1.000
+			Title_14.Size = UDim2.new(1, -20, 1, 0)
+			Title_14.Font = Enum.Font.Ubuntu
+			Title_14.Text = "Keybind"
+			Title_14.TextColor3 = Color3.fromRGB(255, 255, 255)
+			Title_14.TextSize = 14.000
+			Title_14.TextXAlignment = Enum.TextXAlignment.Left
+
+			UIPadding_24.Parent = Keybind
+			UIPadding_24.PaddingBottom = UDim.new(0, 6)
+			UIPadding_24.PaddingLeft = UDim.new(0, 6)
+			UIPadding_24.PaddingRight = UDim.new(0, 6)
+			UIPadding_24.PaddingTop = UDim.new(0, 6)
+			
+			UIStroke_Idk791.Name = "UIStroke"
+			UIStroke_Idk791.Parent = Keybind
+			UIStroke_Idk791.ApplyStrokeMode = "Border"
+			UIStroke_Idk791.Color = Color3.fromRGB(81, 81, 81)
+			UIStroke_Idk791.LineJoinMode = "Round"
+			UIStroke_Idk791.Thickness = 1
+			UIStroke_Idk791.Transparency = 0
+
+			Sample.Name = "Sample"
+			Sample.Parent = Keybind
+			Sample.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			Sample.BackgroundTransparency = 1.000
+			Sample.Image = "http://www.roblox.com/asset/?id=4560909609"
+			Sample.ImageColor3 = Color3.fromRGB(0, 0, 0)
+			Sample.ImageTransparency = 0.600
+
+			Box.Name = "Box"
+			Box.Parent = Keybind
+			Box.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			Box.BackgroundTransparency = 0.900
+			Box.BorderColor3 = Color3.fromRGB(53, 53, 53)
+			Box.Position = UDim2.new(0.897233188, 0, 0, 0)
+			Box.Size = UDim2.new(0, 22, 0, 20)
+
+			UICorner_37.CornerRadius = UDim.new(0, 4)
+			UICorner_37.Parent = Box
+			
+			UIStroke_qqqaa.Name = "UIStroke"
+			UIStroke_qqqaa.Parent = Box
+			UIStroke_qqqaa.ApplyStrokeMode = "Border"
+			UIStroke_qqqaa.Color = Color3.fromRGB(81, 81, 81)
+			UIStroke_qqqaa.LineJoinMode = "Round"
+			UIStroke_qqqaa.Thickness = 1
+			UIStroke_qqqaa.Transparency = 0
+
+			KeybindC.Name = "KeybindC"
+			KeybindC.Parent = Keybind
+			KeybindC.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			KeybindC.BackgroundTransparency = 1.000
+			KeybindC.Position = UDim2.new(0.897233188, 0, 0, 0)
+			KeybindC.Size = UDim2.new(0, 26, 0, 20)
+			KeybindC.Font = Enum.Font.SourceSans
+			KeybindC.Text = oldKey
+			KeybindC.TextColor3 = Color3.fromRGB(255, 255, 255)
+			KeybindC.TextSize = 14.000
+
+			UIPadding_25.Parent = KeybindC
+			UIPadding_25.PaddingRight = UDim.new(0, 4)
 		end
 
 		function Elements:WarningLabel(WarningText)
