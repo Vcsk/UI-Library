@@ -1060,7 +1060,7 @@ function Library:Create(TitleText)
 			Title_14.BackgroundTransparency = 1.000
 			Title_14.Size = UDim2.new(1, -20, 1, 0)
 			Title_14.Font = Enum.Font.Ubuntu
-			Title_14.Text = "Keybind"
+			Title_14.Text = KeybindTitle
 			Title_14.TextColor3 = Color3.fromRGB(255, 255, 255)
 			Title_14.TextSize = 14.000
 			Title_14.TextXAlignment = Enum.TextXAlignment.Left
