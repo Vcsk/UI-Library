@@ -580,8 +580,13 @@ function Kavo.CreateLib(kavName, themeList)
                 updateSectionFrame()
                 UpdateSize()
                 function sectionFunctions:UpdateSection(NewText)
-                    sectionName.Text = NewText
+                    secName = NewText
+                    sectionFunctions:_update()
                 end
+                function sectionFunctions:_update()
+                    sectionName.Text = secName
+                end
+                sectionFunctions:_update()
                 return sectionFunctions
             local Elements = {}
             function Elements:NewButton(bname,tipINf, callback)
