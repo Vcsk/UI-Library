@@ -2644,15 +2644,6 @@ function Kavo.CreateLib(kavName, themeList)
                 return labelFunctions
             end	
             return Elements
-            function sectionFunctions:UpdateSection(NewText)
-                secName = NewText
-                sectionFunctions:_update()
-            end
-            function sectionFunctions:_update()
-                sectionName.Text = secName
-            end
-            sectionFunctions:_update()
-            return sectionFunctions
         end
         return Sections
     end  
