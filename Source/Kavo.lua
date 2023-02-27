@@ -579,6 +579,10 @@ function Kavo.CreateLib(kavName, themeList)
             end
                 updateSectionFrame()
                 UpdateSize()
+                function sectionFunctions:UpdateSection(NewText)
+                    sectionName.Text = NewText
+                end
+                return sectionFunctions
             local Elements = {}
             function Elements:NewButton(bname,tipINf, callback)
                 showLogo = showLogo or true
