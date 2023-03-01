@@ -1736,7 +1736,7 @@ function Kavo.CreateLib(kavName, themeList)
                     optionSelect.Size = UDim2.new(0, 352, 0, 33)
                     optionSelect.AutoButtonColor = false
                     optionSelect.Font = Enum.Font.GothamSemibold
-                    optionSelect.Text = "  "..dropname.." - "..v
+                    optionSelect.Text = "  "..v
                     optionSelect.TextColor3 = Color3.fromRGB(themeList.TextColor.r * 255 - 6, themeList.TextColor.g * 255 - 6, themeList.TextColor.b * 255 - 6)
                     optionSelect.TextSize = 14.000
                     optionSelect.TextXAlignment = Enum.TextXAlignment.Left
@@ -1745,7 +1745,7 @@ function Kavo.CreateLib(kavName, themeList)
                         if not focusing then
                             opened = false
                             callback(v)
-                            itemTextbox.Text = v
+                            itemTextbox.Text = dropname.." - "..v
                             dropFrame:TweenSize(UDim2.new(0, 352, 0, 33), 'InOut', 'Linear', 0.08)
                             wait(0.1)
                             updateSectionFrame()
@@ -1835,7 +1835,7 @@ function Kavo.CreateLib(kavName, themeList)
                         optionSelect.Size = UDim2.new(0, 352, 0, 33)
                         optionSelect.AutoButtonColor = false
                         optionSelect.Font = Enum.Font.GothamSemibold
-                        optionSelect.Text = "  "..dropname.." - "..v
+                        optionSelect.Text = "  "..v
                         optionSelect.TextColor3 = Color3.fromRGB(themeList.TextColor.r * 255 - 6, themeList.TextColor.g * 255 - 6, themeList.TextColor.b * 255 - 6)
                         optionSelect.TextSize = 14.000
                         optionSelect.TextXAlignment = Enum.TextXAlignment.Left
@@ -1846,7 +1846,7 @@ function Kavo.CreateLib(kavName, themeList)
                             if not focusing then
                                 opened = false
                                 callback(v)
-                                itemTextbox.Text = v
+                                itemTextbox.Text = dropname.." - "..v
                                 dropFrame:TweenSize(UDim2.new(0, 352, 0, 33), 'InOut', 'Linear', 0.08)
                                 wait(0.1)
                                 updateSectionFrame()
