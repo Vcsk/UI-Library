@@ -1476,7 +1476,9 @@ function Kavo.CreateLib(kavName, themeList)
                 list = list or {}
                 dropinf = dropinf or "Dropdown info"
                 first = first or ""
-                callback = callback or function() end   
+                callback = callback or function() end
+
+                callback(first)
 
                 local opened = false
                 local DropYSize = 33
@@ -1745,7 +1747,6 @@ function Kavo.CreateLib(kavName, themeList)
                     optionSelect.MouseButton1Click:Connect(function()
                         if not focusing then
                             opened = false
-                            callback(first)
                             callback(v)
                             itemTextbox.Text = dropname.." - "..v
                             dropFrame:TweenSize(UDim2.new(0, 352, 0, 33), 'InOut', 'Linear', 0.08)
@@ -1847,7 +1848,6 @@ function Kavo.CreateLib(kavName, themeList)
                         optionSelect.MouseButton1Click:Connect(function()
                             if not focusing then
                                 opened = false
-                                callback(first)
                                 callback(v)
                                 itemTextbox.Text = dropname.." - "..v
                                 dropFrame:TweenSize(UDim2.new(0, 352, 0, 33), 'InOut', 'Linear', 0.08)
