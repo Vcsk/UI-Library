@@ -7,10 +7,10 @@ local Mouse = LocalPlayer:GetMouse()
 local PresetColor = Color3.fromRGB(44, 120, 224)
 local CloseBind = Enum.KeyCode.RightControl
 
-local knixhub = Instance.new("ScreenGui")
-knixhub.Name = "Astral Hub"
-knixhub.Parent = game.CoreGui
-knixhub.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+local Kinx = Instance.new("ScreenGui")
+Kinx.Name = "Kinx"
+Kinx.Parent = game.CoreGui
+Kinx.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 coroutine.wrap(
 function()
@@ -98,7 +98,7 @@ local TabFolder = Instance.new("Folder")
 local DragFrame = Instance.new("Frame")
 
 Main.Name = "Main"
-Main.Parent = knixhub
+Main.Parent = Kinx
 Main.AnchorPoint = Vector2.new(0.5, 0.5)
 Main.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 Main.BorderSizePixel = 0
@@ -144,7 +144,7 @@ local LoadText = Instance.new("TextLabel")
 local LoadTitle = Instance.new("TextLabel")
 
 LoadFrame.Name = "LoadFrame"
-LoadFrame.Parent = knixhub
+LoadFrame.Parent = Kinx
 LoadFrame.AnchorPoint = Vector2.new(0.5, 0.5)
 LoadFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 LoadFrame.BorderSizePixel = 0
@@ -271,10 +271,10 @@ if uitoggled == false then
 Main:TweenSize(UDim2.new(0, 0, 0, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .6, true)
 uitoggled = true
 wait(.5)
-knixhub.Enabled = false
+Kinx.Enabled = false
 else
 Main:TweenSize(UDim2.new(0, 560, 0, 319), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .6, true)
-knixhub.Enabled = true
+Kinx.Enabled = true
 uitoggled = false
 end
 end
