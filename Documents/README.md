@@ -37,12 +37,6 @@ local Tab = Window:NewTab("TabName")
 local Section = Tab:NewSection("Section Name")
 ```
 
-## Update Section
-
-```lua
-Section:UpdateSection("Section New Title")
-```
-
 ## Creating Labels
 
 ```lua
