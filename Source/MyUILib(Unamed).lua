@@ -1,3 +1,10 @@
+--[[
+
+Code from Kavo UI Library
+UI made by Deity
+
+]]
+
 local Library = {}
 
 local tween = game:GetService("TweenService")
