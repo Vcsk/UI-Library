@@ -725,25 +725,25 @@ function Library:CreateTab(name)
             end)
     
             CircleSelector.InputBegan:Connect(function(input)
-                if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+                if input.UserInputType == Enum.UserInputType.MouseButton1 then
                     SliderDragging = true
                 end
             end)
             
             CircleSelector.InputEnded:Connect(function(input)
-                if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+                if input.UserInputType == Enum.UserInputType.MouseButton1 then
                     SliderDragging = false
                 end
             end)
             
             CircleSelector.InputBegan:Connect(function(input)
-                if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+                if input.UserInputType == Enum.UserInputType.MouseButton1 then
                     Sliding(input)
                 end
             end)
         
             UserInputService.InputChanged:Connect(function(input)
-                if SliderDragging and input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+                if SliderDragging and input.UserInputType == Enum.UserInputType.MouseMovement then
                     Sliding(input)
                 end
             end)
