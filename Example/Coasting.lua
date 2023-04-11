@@ -1,4 +1,4 @@
-local CoastingLibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/GhostDuckyy/UI-Libraries/main/Coasting%20Ui%20Lib/source.lua"))()
+local CoastingLibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/Vcsk/UI-Library/main/Source/Coasting.lua"))()
 
 local AimbotTab = CoastingLibrary:CreateTab("Aimbot")
 local MainSection = AimbotTab:CreateSection("Main")
