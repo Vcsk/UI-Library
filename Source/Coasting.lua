@@ -493,7 +493,7 @@ function Library:CreateTab(name)
             end)
 
             Button.InputEnded:Connect(function(input)
-                if input.UserInputType == Enum.UserInputType.MouseMovement then
+                if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
                     TweenService:Create(ButtonRounded, TweenInfo.new(0.25, Library.Theme.EasingStyle, Enum.EasingDirection.Out), {ImageColor3 = Library.Theme.MainColor}):Play()
                 end
             end)
@@ -725,25 +725,25 @@ function Library:CreateTab(name)
             end)
     
             CircleSelector.InputBegan:Connect(function(input)
-                if input.UserInputType == Enum.UserInputType.MouseButton1 then
+                if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
                     SliderDragging = true
                 end
             end)
             
             CircleSelector.InputEnded:Connect(function(input)
-                if input.UserInputType == Enum.UserInputType.MouseButton1 then
+                if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
                     SliderDragging = false
                 end
             end)
             
             CircleSelector.InputBegan:Connect(function(input)
-                if input.UserInputType == Enum.UserInputType.MouseButton1 then
+                if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
                     Sliding(input)
                 end
             end)
         
             UserInputService.InputChanged:Connect(function(input)
-                if SliderDragging and input.UserInputType == Enum.UserInputType.MouseMovement then
+                if SliderDragging and input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
                     Sliding(input)
                 end
             end)
@@ -1063,7 +1063,7 @@ function Library:CreateTab(name)
             callback(Color.BackgroundColor3)
     
             Color.InputBegan:Connect(function(input)
-                if input.UserInputType == Enum.UserInputType.MouseButton1 then
+                if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
                     if RainbowColorPicker then return end
     
                     if ColorInput then
@@ -1084,7 +1084,7 @@ function Library:CreateTab(name)
             end)
     
             Color.InputEnded:Connect(function(input)
-                if input.UserInputType == Enum.UserInputType.MouseButton1 then
+                if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
                     if ColorInput then
                         ColorInput:Disconnect()
                     end
@@ -1092,7 +1092,7 @@ function Library:CreateTab(name)
             end)
     
             Hue.InputBegan:Connect(function(input)
-                if input.UserInputType == Enum.UserInputType.MouseButton1 then
+                if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
                     if RainbowColorPicker then return end
     
                     if HueInput then
@@ -1111,7 +1111,7 @@ function Library:CreateTab(name)
             end)
     
             Hue.InputEnded:Connect(function(input)
-                if input.UserInputType == Enum.UserInputType.MouseButton1 then
+                if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
                     if HueInput then
                         HueInput:Disconnect()
                     end
@@ -1286,13 +1286,13 @@ function Library:CreateTab(name)
                 end)
 
                 NameButton.InputBegan:Connect(function(input)
-                    if input.UserInputType == Enum.UserInputType.MouseMovement then
+                    if input.UserInputType == Enum.UserInputType.MouseMovement  or input.UserInputType == Enum.UserInputType.Touch then
                         TweenService:Create(NameButton, TweenInfo.new(0.35, Library.Theme.EasingStyle, Enum.EasingDirection.Out), {BackgroundTransparency = 0.95}):Play()
                     end
                 end)
 
                 NameButton.InputEnded:Connect(function(input)
-                    if input.UserInputType == Enum.UserInputType.MouseMovement then
+                    if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
                         TweenService:Create(NameButton, TweenInfo.new(0.35, Library.Theme.EasingStyle, Enum.EasingDirection.Out), {BackgroundTransparency = 1}):Play()
                     end
                 end)
@@ -1347,13 +1347,13 @@ function Library:CreateTab(name)
                     end)
     
                     NameButton.InputBegan:Connect(function(input)
-                        if input.UserInputType == Enum.UserInputType.MouseMovement then
+                        if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
                             TweenService:Create(NameButton, TweenInfo.new(0.35, Library.Theme.EasingStyle, Enum.EasingDirection.Out), {BackgroundTransparency = 0.95}):Play()
                         end
                     end)
     
                     NameButton.InputEnded:Connect(function(input)
-                        if input.UserInputType == Enum.UserInputType.MouseMovement then
+                        if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
                             TweenService:Create(NameButton, TweenInfo.new(0.35, Library.Theme.EasingStyle, Enum.EasingDirection.Out), {BackgroundTransparency = 1}):Play()
                         end
                     end)
