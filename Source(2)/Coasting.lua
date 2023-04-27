@@ -250,6 +250,10 @@ function Library:ToggleUI()
     end
 end
 
+function Library:DestroyUI()
+    UILibrary:Destroy()
+end
+
 coroutine.wrap(function()
     while wait() do
         Library.RainbowColorValue = Library.RainbowColorValue + 1/255
