@@ -239,12 +239,12 @@ local function KeepFirstTabOpen()
 end
 
 function ToggleUI()
-    Library.UIOpen = not Library.UIOpen
+    Main.Visible = not Main.Visible
             
-    if Library.UIOpen then
+    if Main.Visible then
         TweenService:Create(Main, TweenInfo.new(0.5, Library.Theme.EasingStyle, Enum.EasingDirection.Out), {Size = UDim2.new(0, 450, 0, 0)}):Play()
         TweenService:Create(Border, TweenInfo.new(0.5, Library.Theme.EasingStyle, Enum.EasingDirection.Out), {ImageTransparency = 1}):Play()
-    elseif not Library.UIOpen then
+    elseif not Main.Visible then
         TweenService:Create(Main, TweenInfo.new(0.5, Library.Theme.EasingStyle, Enum.EasingDirection.Out), {Size = UDim2.new(0, 450, 0, 250)}):Play()
         TweenService:Create(Border, TweenInfo.new(0.5, Library.Theme.EasingStyle, Enum.EasingDirection.Out), {ImageTransparency = 0}):Play()
     end
