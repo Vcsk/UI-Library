@@ -230,7 +230,7 @@ local function KeepFirstTabOpen()
     for i, v in pairs(TabButtons:GetChildren()) do
         if v:IsA("ImageButton") then
             if v.Name:find(Library.FirstTab .. "TabButton") then
-                TweenService:Create(v, TweenInfo.new(0.3, Library.Theme.EasingStyle, Enum.EasingDirection.Out), {ImageColor3 = DarkenObjectColor(Library.Theme.MainColor, 15)}):Play()
+                TweenService:Create(v, TweenInfo.new(0.3, Library.Theme.EasingStyle, Enum.EasingDirection.Out), {ImageColor3 = Color3.fromRGB(112, 0, 212)}):Play()
             else
                 TweenService:Create(v, TweenInfo.new(0.3, Library.Theme.EasingStyle, Enum.EasingDirection.Out), {ImageColor3 = Library.Theme.MainColor}):Play()
             end
@@ -325,7 +325,7 @@ function Library:CreateTab(name)
     table.insert(Library.LibraryColorTable, NameTabButton)
     CloseAllTabs()
     ResetAllTabButtons()
-    TweenService:Create(NameTabButton, TweenInfo.new(0.3, Library.Theme.EasingStyle, Enum.EasingDirection.Out), {ImageColor3 = DarkenObjectColor(Library.Theme.MainColor, 15)}):Play()
+    TweenService:Create(NameTabButton, TweenInfo.new(0.3, Library.Theme.EasingStyle, Enum.EasingDirection.Out), {ImageColor3 = Color3.fromRGB(112, 0, 212)}):Play()
 
     KeepFirstTabOpen()
 
@@ -334,7 +334,7 @@ function Library:CreateTab(name)
         ResetAllTabButtons()
 
         NameTab.Visible = true
-        TweenService:Create(NameTabButton, TweenInfo.new(0.3, Library.Theme.EasingStyle, Enum.EasingDirection.Out), {ImageColor3 = DarkenObjectColor(Library.Theme.MainColor, 15)}):Play()
+        TweenService:Create(NameTabButton, TweenInfo.new(0.3, Library.Theme.EasingStyle, Enum.EasingDirection.Out), {ImageColor3 = Color3.fromRGB(112, 0, 212)}):Play()
     end)
 
     function TabElements:CreateSection(name)
@@ -482,7 +482,7 @@ function Library:CreateTab(name)
             ButtonRounded.SliceScale = 0.050
 
             Button.MouseButton1Down:Connect(function()
-                TweenService:Create(ButtonRounded, TweenInfo.new(0.25, Library.Theme.EasingStyle, Enum.EasingDirection.Out), {ImageColor3 = DarkenObjectColor(Library.Theme.MainColor, 20)}):Play()
+                TweenService:Create(ButtonRounded, TweenInfo.new(0.25, Library.Theme.EasingStyle, Enum.EasingDirection.Out), {ImageColor3 = Color3.fromRGB(112, 0, 212)}):Play()
 
                 RippleEffect(Button)
                 callback(Button)
