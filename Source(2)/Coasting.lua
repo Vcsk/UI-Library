@@ -238,7 +238,7 @@ local function KeepFirstTabOpen()
     end
 end
 
-local function ToggleUI()
+function ToggleUI()
     Library.UIOpen = not Library.UIOpen
             
     if Library.UIOpen then
