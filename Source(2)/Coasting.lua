@@ -72,7 +72,7 @@ local function RippleEffect(object)
         wait(1)
         Ripple:Destroy()
     end)
-endDelta
+end
 
 local function MakeDraggable(topbarobject, object)
     local Dragging = nil
