@@ -363,7 +363,7 @@ function Library:Create(TitleText)
 					game.TweenService:Create(v, TweenInfo.new(0.2, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
 						TextColor3 = Color3.fromRGB(199, 199, 199)
 					}):Play()
-					game.TweenService:Create(v, TweenInfo.new(0.2, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+					game.TweenService:Create(TabIcon, TweenInfo.new(0.2, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
 						ImageColor3 = Color3.fromRGB(199, 199, 199)
 					}):Play()
 				end
@@ -374,7 +374,7 @@ function Library:Create(TitleText)
 			game.TweenService:Create(Active, TweenInfo.new(0.2, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
 				TextColor3 = Color3.fromRGB(255, 255, 255)
 			}):Play()
-			game.TweenService:Create(Active, TweenInfo.new(0.2, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+			game.TweenService:Create(TabIcon, TweenInfo.new(0.2, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
 				ImageColor3 = Color3.fromRGB(255, 255, 255)
 			}):Play()
 		end)
